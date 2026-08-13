@@ -1,7 +1,22 @@
 import { RevealOnScroll } from "../RevealOnScroll";
 import abstractImage from "../../assets/abstract.png";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Home = () => {
+  const navigate = useNavigate();
+
+  const handleViewProjects = (e) => {
+    e.preventDefault();
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleAboutMeClick = () => {
+    navigate('/aboutme');
+  };
+
   return (
     <section
       id="home"
@@ -18,38 +33,41 @@ export const Home = () => {
                 <h1 className="text-5xl font-bold tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
                   Hi! I'm <span className="block text-blue-700">Esdras Jimenez.</span>
                 </h1>
-                <p className="mt-6 text-slate-600 text-2xl max-w-2xl leading-8">
+                <p className="mt-3 text-slate-600 text-2xl max-w-2xl leading-8">
                   Systems Engineer | Master in Project Management & Evaluation
                 </p>
-                <p className="mt-4 text-slate-600 text-sm max-w-2xl leading-7">
-                  I started as a Systems Engineer, fell in love with solving complex technical problems, 
-                  and realized the real challenge wasn't building things—it was building the right things 
-                  with the right people at the right time. Now I help teams turn ideas into well-engineered, 
-                  measurable results.
+                <p className="mt-3 text-slate-600 text-sm max-w-2xl leading-7">
+                  I started as a Systems Engineer, fascinated by complex problems and how systems come together.
+                  I learned that great solutions aren’t just about building things, they’re about building the right things,
+                  with the right people, for a real purpose. Today, I combine engineering 
+                  and project thinking to turn ideas into practical results.
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-3">
                 <a
                   href="#projects"
-                  className="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition hover:bg-slate-800"
+                  onClick={handleViewProjects}
+                  className="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition hover:bg-slate-800 cursor-pointer"
                 >
                   View Projects
                 </a>
 
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
+                <button
+                  onClick={handleAboutMeClick}
+                  className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 cursor-pointer"
                 >
                   More about me →
-                </a>
+                </button>
               </div>
 
-              <div className="mt-1">
+              <div className="mt-0.5">
                 <div className="h-px w-full bg-slate-200/80 mb-6" />
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                <div className="flex flex-row flex-wrap items-center gap-3 sm:gap-4">
                   <a
                     href="https://github.com/esdrasj71"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label="GitHub"
                     className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 transition hover:border-blue-300 hover:bg-blue-100 hover:text-blue-900"
                   >
@@ -69,6 +87,8 @@ export const Home = () => {
 
                   <a
                     href="https://www.linkedin.com/in/esdjimenez"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label="LinkedIn"
                     className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 transition hover:border-blue-300 hover:bg-blue-100 hover:text-blue-900"
                   >
@@ -87,18 +107,18 @@ export const Home = () => {
               </div>
             </div>
 
-<div className="lg:col-span-5 flex justify-center lg:justify-end self-center">
-  <div className="relative w-full max-w-[600px] rounded-[2rem] border border-slate-200/40 bg-white/75 p-6 shadow-[0_20px_40px_-30px_rgba(15,23,42,0.15)] ring-1 ring-slate-100">
-    <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-sky-200/40 via-transparent to-cyan-200/20 blur-3xl" />
-    <div className="relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-medium h-[200px] md:h-[330px]">
-      <img
-        src={abstractImage}
-        alt="Abstract graphic"
-        className="h-full w-full object-cover"
-      />
-    </div>
-  </div>
-</div>
+            <div className="lg:col-span-5 flex justify-center lg:justify-end self-center">
+              <div className="relative w-full max-w-[600px] rounded-[2rem] border border-slate-200/40 bg-white/75 p-6 shadow-[0_20px_40px_-30px_rgba(15,23,42,0.15)] ring-1 ring-slate-100">
+                <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-sky-200/40 via-transparent to-cyan-200/20 blur-3xl" />
+                <div className="relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-medium h-[200px] md:h-[330px]">
+                  <img
+                    src={abstractImage}
+                    alt="Abstract graphic"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </RevealOnScroll>

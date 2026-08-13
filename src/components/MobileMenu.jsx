@@ -1,4 +1,50 @@
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
 export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNavClick = (sectionId, e) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    
+    if (location.pathname === '/aboutme') {
+      navigate('/#' + sectionId);
+      setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 100);
+    } else {
+      scrollToSection(sectionId);
+    }
+  };
+
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    if (location.pathname === '/aboutme') {
+      navigate('/#contact');
+      setTimeout(() => {
+        scrollToSection('contact');
+      }, 100);
+    } else {
+      scrollToSection('contact');
+    }
+  };
+
+  const navItems = [
+    { id: "home", label: "Home" },
+    { id: "experience", label: "Experience" },
+    { id: "projects", label: "Projects" },
+    { id: "about", label: "About" },
+  ];
+
   return (
     <div
       className={`fixed top-0 left-0 w-full bg-[#EFF1F5] z-40 flex flex-col items-center justify-center px-6 pt-24
@@ -18,17 +64,12 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
         &times;
       </button>
 
-      {[
-        { href: "#home", label: "Home" },
-        { href: "#experience", label: "Experience" },
-        { href: "#projects", label: "Projects" },
-        { href: "#about", label: "About" },
-      ].map((item) => (
+      {navItems.map((item) => (
         <a
-          key={item.href}
-          href={item.href}
-          onClick={() => setMenuOpen(false)}
-          className={`text-2xl font-semibold text-slate-900 my-4 transform transition-transform duration-300 ${
+          key={item.id}
+          href={`#${item.id}`}
+          onClick={(e) => handleNavClick(item.id, e)}
+          className={`text-2xl font-semibold text-slate-900 my-4 transform transition-transform duration-300 cursor-pointer ${
             menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
           }`}
         >
@@ -38,8 +79,8 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
 
       <a
         href="#contact"
-        onClick={() => setMenuOpen(false)}
-        className={`mt-6 inline-flex rounded-full bg-slate-900 px-7 py-3 text-sm font-semibold text-white transition ${
+        onClick={handleContactClick}
+        className={`mt-6 inline-flex rounded-full bg-slate-900 px-7 py-3 text-sm font-semibold text-white transition cursor-pointer ${
           menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
         }`}
       >

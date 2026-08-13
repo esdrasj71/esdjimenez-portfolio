@@ -54,3 +54,27 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+.photo-stack {
+  perspective: 800px;
+}
+
+.photo-stack .card {
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center bottom;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.photo-stack .card:hover {
+  filter: brightness(1.05);
+}
+
+.photo-stack .card-shadow {
+  background: linear-gradient(
+    to bottom,
+    transparent 60%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+}
