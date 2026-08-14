@@ -78,3 +78,16 @@ body {
     rgba(0, 0, 0, 0.05) 100%
   );
 }
+
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 0px rgba(37, 99, 235, 0);
+  }
+  100% {
+    text-shadow: 0 0 8px rgba(37, 99, 235, 0.15);
+  }
+}
+
+.about-item:hover .title-glow {
+  animation: glow 0.3s ease-in-out forwards;
+}

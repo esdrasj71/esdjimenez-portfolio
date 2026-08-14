@@ -10,6 +10,7 @@ import { About } from "./components/sections/About";
 import { Projects } from "./components/sections/Projects";
 import { Contact } from "./components/sections/Contact";
 import { AboutMe } from "./components/pages/AboutMe";
+import { Footer } from "./components/Footer";
 import "./index.css";
 
 // Component to handle scroll restoration and hash navigation
@@ -18,10 +19,8 @@ function ScrollHandler() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // If on home page and there's a hash, scroll to the section
     if (location.pathname === '/' && location.hash) {
       const elementId = location.hash.replace('#', '');
-      // Small delay to ensure DOM is rendered
       setTimeout(() => {
         const element = document.getElementById(elementId);
         if (element) {
@@ -30,7 +29,6 @@ function ScrollHandler() {
       }, 100);
     }
     
-    // If on home page without hash, scroll to top
     if (location.pathname === '/' && !location.hash) {
       window.scrollTo(0, 0);
     }
@@ -50,8 +48,7 @@ function App() {
         <div className={`min-h-screen transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'} bg-[#EFF1F5] text-slate-900`}>
           <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
           <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-          
-          {/* Add ScrollHandler component */}
+                    
           <ScrollHandler />
 
           <Routes>
@@ -64,12 +61,13 @@ function App() {
                   <Projects />
                   <About />
                   <Contact />
-                </>
+                </> 
               }
             />
 
             <Route path="/aboutme" element={<AboutMe />} />
           </Routes>
+          <Footer />
         </div>
       </Router>
     </>

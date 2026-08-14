@@ -72,7 +72,7 @@ export const Experience = () => {
   return (
     <section id="experience" className="py-12">
       <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-slate-900 to-blue-700 bg-clip-text text-transparent text-center">
+        <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-slate-900 to-blue-600 bg-clip-text text-transparent text-center">
             Experience
           </h2>
 
@@ -142,8 +142,7 @@ export const Experience = () => {
                             <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
                         </svg>
                         </span>
-
-                        { /* Interactive map for Landívar (id 1) and Mesoamericana (id 2) on their location bullets */ }
+                    
                         {item.id === 1 && b.includes("Guatemala") ? (
                           <div className="relative inline-block">
                             <span

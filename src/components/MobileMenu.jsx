@@ -42,7 +42,7 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
     { id: "home", label: "Home" },
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
-    { id: "about", label: "About" },
+    { id: "about", label: "More" },
   ];
 
   return (

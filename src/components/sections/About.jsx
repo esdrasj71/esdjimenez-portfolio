@@ -1,106 +1,76 @@
 import { RevealOnScroll } from "../RevealOnScroll";
 
 export const About = () => {
-  const frontendSkills = [
-    "React",
-    "Vue",
-    "TypeScript",
-    "TailwindCSS",
-    "Svelte",
-  ];
-
-  const backendSkills = ["Node.js", "Python", "AWS", "MongoDB", "GraphQL"];
-
   return (
-    <section
-      id="about"
-      className="min-h-screen flex items-center justify-center py-20"
-    >
+    <section id="about" className="min-h-screen flex items-center justify-center py-20 bg-[#F7F9FC]">
       <RevealOnScroll>
-        <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent text-center">
-            {" "}
-            About Me
+        <div className="max-w-6xl mx-auto px-4">
+          {/* Centered Title with Gradient */}
+          <h2 className="text-4xl font-bold mb-2 text-center bg-gradient-to-r from-slate-900 to-blue-700 bg-clip-text text-transparent">
+            Professional Development
           </h2>
+          
+          {/* Centered Description */}
+          <p className="text-slate-600 mb-8 max-w-2xl mx-auto text-center">
+            A collection of certifications and credentials that reflect my commitment 
+            to continuous learning and growth in engineering and project management.
+          </p>
 
-          <div className="rounded-xl p-8 border-slate-200 border hover:-translate-y-1 transition-all bg-white/90 shadow-sm">
-            <p className="text-slate-700 mb-6">
-              Passionate developer with expertise in building scalable web
-              applications and creating innovative solutions.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-xl border-slate-200 border hover:-translate-y-1 transition-all bg-white/90 shadow-sm">
-                <h3 className="text-xl font-bold mb-4"> Frontend</h3>
-                <div className="flex flex-wrap gap-2">
-                  {frontendSkills.map((tech, key) => (
-                    <span
-                      key={key}
-                      className="bg-blue-500/10 text-blue-600 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-xl p-6 hover:-translate-y-1 transition-all">
-                <h3 className="text-xl font-bold mb-4"> Backend</h3>
-                <div className="flex flex-wrap gap-2">
-                  {backendSkills.map((tech, key) => (
-                    <span
-                      key={key}
-                      className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 
-                                    hover:shadow-[0_2px_8px_rgba(59,130,2246,0.2)] transition
-                    "
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-            <div className="p-6 rounded-xl border-slate-200 border hover:-translate-y-1 transition-all bg-white/90 shadow-sm">
-              <h3 className="text-xl font-bold mb-4"> 🏫 Education </h3>
-              <ul className="list-disc list-inside text-slate-600 space-y-2">
-                <li>
-                  <strong> B.S. in Computer Science </strong> - XYZ University
-                  (2016-2020)
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Certifications */}
+            <div className="bg-white rounded-xl border border-slate-200/40 p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              <h3 className="text-xl font-semibold text-slate-800 mb-4 flex items-center gap-2">
+                <span className="text-blue-600">📜</span> Certifications
+              </h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 group">
+                  <span className="text-blue-600 mt-1 group-hover:scale-110 transition-transform">✓</span>
+                  <div>
+                    <p className="font-medium text-slate-800 group-hover:text-blue-700 transition-colors duration-200">
+                      AWS Certified Cloud Practitioner
+                    </p>
+                    <p className="text-sm text-slate-500">Amazon Web Services</p>
+                  </div>
                 </li>
-                <li>
-                  Relevant Coursework: Data Structures, Web Development, Cloud
-                  Computing...
+                <li className="flex items-start gap-3 group">
+                  <span className="text-amber-500 mt-1 group-hover:scale-110 transition-transform">⟳</span>
+                  <div>
+                    <p className="font-medium text-slate-800 group-hover:text-blue-700 transition-colors duration-200 title-glow">
+                      AWS Certified Cloud Practitioner
+                    </p>
+                    <p className="text-sm text-slate-500">
+                      Amazon Web Services <span className="text-amber-500 text-xs ml-1">(In Progress)</span>
+                    </p>
+                  </div>
                 </li>
               </ul>
             </div>
-            <div className="p-6 rounded-xl border-slate-200 border hover:-translate-y-1 transition-all bg-white/90 shadow-sm">
-              <h3 className="text-xl font-bold mb-4"> 💼 Work Experience </h3>
-              <div className="space-y-4 text-slate-600">
-                <div>
-                  <h4 className="font-semibold">
-                    {" "}
-                    Software Engineer at ABC Corp (2020 - Present){" "}
-                  </h4>
-                  <p>
-                    Developed and maintained microservices for cloud-based
-                    applications.
-                  </p>
-                </div>
 
-                <div>
-                  <h4 className="font-semibold">
-                    {" "}
-                    Intern at DEF Startups (2019){" "}
-                  </h4>
-                  <p>
-                    Assisted in building front-end components and integration
-                    REST APIs
-                  </p>
-                </div>
-              </div>
+            {/* Diplomas */}
+            <div className="bg-white rounded-xl border border-slate-200/40 p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              <h3 className="text-xl font-semibold text-slate-800 mb-4 flex items-center gap-2">
+                <span className="text-blue-600">🎓</span> Diplomas
+              </h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 group">
+                  <span className="text-blue-600 mt-1 group-hover:scale-110 transition-transform">✓</span>
+                  <div>
+                    <p className="font-medium text-slate-800 group-hover:text-blue-700 transition-colors duration-200">
+                      Hybrid Network Security Diploma
+                    </p>
+                    <p className="text-sm text-slate-500">CITEIN</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3 group">
+                  <span className="text-blue-600 mt-1 group-hover:scale-110 transition-transform">✓</span>
+                  <div>
+                    <p className="font-medium text-slate-800 group-hover:text-blue-700 transition-colors duration-200">
+                      Software Quality Assurance (QA) Diploma
+                    </p>
+                    <p className="text-sm text-slate-500">CITEIN</p>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

@@ -48,11 +48,11 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
         { id: "home", label: "Home" },
         { id: "experience", label: "Experience" },
         { id: "projects", label: "Projects" },
-        { id: "about", label: "About" },
+        { id: "about", label: "More" },
     ];
 
     return (
-        <nav className="fixed top-0 w-full z-40 bg-white/50 backdrop-blur-xl border-b border-slate-200/80 shadow-sm shadow-slate-900/5">
+        <nav className="fixed top-0 w-full z-40 bg-white/45 backdrop-blur-xl border-b border-slate-200/80 shadow-sm shadow-slate-900/5">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo - now using Link for React Router navigation */}
