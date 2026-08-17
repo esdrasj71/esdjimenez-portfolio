@@ -1,11 +1,28 @@
-# React + Vite
+# My Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Personal portfolio website built with React, Vite, and EmailJS — showcasing my work as a Systems Engineer and Project Manager.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-18.x-61DAFB?logo=react)
+![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?logo=vite)
+![EmailJS](https://img.shields.io/badge/EmailJS-4.x-FF6B6B)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📋 Overview
+
+This is my personal portfolio where I share who I am, what I do, and the projects I've worked on. It's built to be fast, clean, and straightforward — just like the solutions I aim to deliver.
+
+## 🛠️ Tech Stack
+
+- **ReactJS** – UI library
+- **Vite** – Build tool for fast development
+- **EmailJS** – Contact form functionality without a backend
+- **CSS3** – Custom styling
+
+## ✨ Features
+
+- Responsive design (works on all devices)
+- Contact form with EmailJS integration
+- Project showcase
+- Clean, minimal UI
 
 ## React Compiler
 
