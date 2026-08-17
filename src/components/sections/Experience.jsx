@@ -123,7 +123,6 @@ export const Experience = () => {
               <div className="flex-1">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    { /* Title with hover/focus popover and click toggle for map (education entries) */ }
                     <div>
                       <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
                       <p className="text-sm text-slate-600">{item.subtitle}</p>

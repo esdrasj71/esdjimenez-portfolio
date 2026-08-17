@@ -33,12 +33,12 @@ export const Home = () => {
                 <h1 className="text-5xl font-bold tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
                   Hi! I'm <span className="block text-blue-700">Esdras Jimenez.</span>
                 </h1>
-                <p className="mt-3 text-slate-600 text-2xl max-w-2xl leading-8">
-                  Systems Engineer | Master in Project Management & Evaluation
+                <p className="mt-3 text-slate-600 text-xl max-w-2xl leading-8">
+                  Systems Engineer | Master's in Project Management & Evaluation
                 </p>
                 <p className="mt-3 text-slate-600 text-sm max-w-2xl leading-7">
                   I started as a Systems Engineer, fascinated by complex problems and how systems come together.
-                  I learned that great solutions aren’t just about building things, they’re about building the right things,
+                  I learned that great solutions isn't just about devoloping software, they’re about building the right things,
                   with the right people, for a real purpose. Today, I combine engineering 
                   and project thinking to turn ideas into practical results.
                 </p>
