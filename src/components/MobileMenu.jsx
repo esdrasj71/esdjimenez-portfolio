@@ -47,7 +47,7 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full bg-[#EFF1F5] z-40 flex flex-col items-center justify-center px-6 pt-24
+      className={`fixed top-0 left-0 w-full bg-[#EFF1F5] z-40 flex flex-col items-center justify-center px-6
                      transition-all duration-300 ease-in-out
                      ${
                        menuOpen
@@ -58,7 +58,7 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
     >
       <button
         onClick={() => setMenuOpen(false)}
-        className="absolute top-6 right-6 text-slate-900 text-3xl focus:outline-none cursor-pointer"
+        className="absolute top-4 right-6 text-slate-900 text-3xl focus:outline-none cursor-pointer"
         aria-label="Close Menu"
       >
         &times;
@@ -69,7 +69,7 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
           key={item.id}
           href={`#${item.id}`}
           onClick={(e) => handleNavClick(item.id, e)}
-          className={`text-2xl font-semibold text-slate-900 my-4 transform transition-transform duration-300 cursor-pointer ${
+          className={`text-2xl font-semibold text-slate-900 my-3 transform transition-transform duration-300 cursor-pointer ${
             menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
           }`}
         >
@@ -80,7 +80,7 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
       <a
         href="#contact"
         onClick={handleContactClick}
-        className={`mt-6 inline-flex rounded-full bg-slate-900 px-7 py-3 text-sm font-semibold text-white transition cursor-pointer ${
+        className={`mt-4 inline-flex rounded-full bg-slate-900 px-7 py-3 text-sm font-semibold text-white transition cursor-pointer ${
           menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
         }`}
       >

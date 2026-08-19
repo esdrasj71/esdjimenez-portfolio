@@ -27,7 +27,7 @@ export const AboutMe = () => {
                   onClick={rotatePhotos}
                 >
                   <div className="relative overflow-visible rounded-lg h-[380px]">
-                    {/* Photo 3 (back/bottom) - visible slightly */}
+                    {/* Photo 3 (back/bottom) */}
                     <div 
                       className="absolute rounded-lg border border-slate-200 shadow-lg transition-all duration-500 ease-in-out"
                       style={{
@@ -61,7 +61,7 @@ export const AboutMe = () => {
                       }}
                     />
 
-                    {/* Photo 1 (top/front) - fully visible */}
+                    {/* Photo 1 (top/front) */}
                     <div 
                       className="absolute inset-0 rounded-lg border border-slate-200 shadow-xl transition-all duration-500 ease-in-out"
                       style={{
@@ -87,7 +87,7 @@ export const AboutMe = () => {
             <div className="md:col-span-8">
               <div className="prose prose-slate max-w-[92%] text-slate-700 space-y-4">
                 <p>
-                  I’m Esdras — a Systems Engineer with a background in Project Management. I’ve always been 
+                  Hey! I’m Esdras Jimenez — a Systems Engineer with a background in Project Management. I’ve always been 
                   interested in where people and technology meet, especially in building software that not only 
                   works well, but actually solves problems and makes a difference. For me, good engineering is 
                   about more than code, it’s about understanding the bigger picture and the people behind the systems 
