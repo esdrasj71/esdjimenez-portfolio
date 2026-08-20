@@ -9,16 +9,20 @@ import { Experience } from "./components/sections/Experience";
 import { About } from "./components/sections/About";
 import { Projects } from "./components/sections/Projects";
 import { Contact } from "./components/sections/Contact";
+import { Project_1 } from "./components/pages/Project_1";
 import { AboutMe } from "./components/pages/AboutMe";
 import { Footer } from "./components/Footer";
 import "./index.css";
 
-// Component to handle scroll restoration and hash navigation
+// In App.jsx
 function ScrollHandler() {
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Scroll reset to top when navigating to any page
+    window.scrollTo(0, 0);
+
     if (location.pathname === '/' && location.hash) {
       const elementId = location.hash.replace('#', '');
       setTimeout(() => {
@@ -66,6 +70,7 @@ function App() {
             />
 
             <Route path="/aboutme" element={<AboutMe />} />
+            <Route path="/project_1" element={<Project_1 />} />
           </Routes>
           <Footer />
         </div>

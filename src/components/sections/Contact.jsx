@@ -66,7 +66,7 @@ export const Contact = () => {
                 name="name"
                 required
                 value={formData.name}
-                className="w-full bg-white border border-slate-200 rounded px-4 py-3 text-slate-900 transition focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                className="w-full bg-white border border-slate-300 rounded px-4 py-3 text-slate-900 transition focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
                 placeholder="Name..."
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
@@ -81,7 +81,7 @@ export const Contact = () => {
                 name="email"
                 required
                 value={formData.email}
-                className="w-full bg-white border border-slate-200 rounded px-4 py-3 text-slate-900 transition focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                className="w-full bg-white border border-slate-300 rounded px-4 py-3 text-slate-900 transition focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
                 placeholder="example@gmail.com"
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
@@ -94,9 +94,9 @@ export const Contact = () => {
                 id="message"
                 name="message"
                 required
-                rows={9}
+                rows={6}
                 value={formData.message}
-                className="w-full bg-white border border-slate-200 rounded px-4 py-3 text-slate-900 transition focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                className="w-full bg-white border border-slate-300 rounded px-4 py-3 text-slate-900 transition focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
                 placeholder="Your Message..."
                 onChange={(e) =>
                   setFormData({ ...formData, message: e.target.value })

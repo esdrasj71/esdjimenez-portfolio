@@ -1,6 +1,14 @@
 import { RevealOnScroll } from "../RevealOnScroll";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Projects = () => {
+    const navigate = useNavigate(); 
+
+    const handleProject1Click = (e) => {
+    e.preventDefault(); 
+    navigate('/project_1');
+  };
+  
   return (
     <section
       id="projects"
@@ -34,7 +42,7 @@ export const Projects = () => {
 
               <div className="flex justify-between items-center">
                 <a
-                  href="#"
+                  onClick={handleProject1Click}
                   className="text-blue-400 hover:text-blue-300 transition-colors my-4"
                 >
                   View Project →

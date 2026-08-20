@@ -20,10 +20,8 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
         e.preventDefault();
         setMenuOpen(false);
         
-        if (location.pathname === '/aboutme') {
-            // Navigate to home with section hash
+        if (location.pathname === '/aboutme' || location.pathname === '/project_1') {
             navigate('/#' + sectionId);
-            // Scroll after navigation
             setTimeout(() => {
                 scrollToSection(sectionId);
             }, 100);
@@ -34,7 +32,7 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
 
     const handleContactClick = (e) => {
         e.preventDefault();
-        if (location.pathname === '/aboutme') {
+        if (location.pathname === '/aboutme' || location.pathname === '/project_1') {
             navigate('/#contact');
             setTimeout(() => {
                 scrollToSection('contact');
@@ -55,7 +53,6 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
         <nav className="fixed top-0 w-full z-40 bg-white/45 backdrop-blur-xl border-b border-slate-200/80 shadow-sm shadow-slate-900/5">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex items-center justify-between h-20">
-                    {/* Logo - now using Link for React Router navigation */}
                     <Link 
                         to="/" 
                         className="font-mono text-xl font-bold text-slate-900 bg-gradient-to-r from-slate-900 to-blue-700 bg-clip-text text-transparent"
@@ -78,7 +75,6 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
                         ))}
                     </div>
 
-                    {/* Contact Me Button */}
                     <div className="hidden md:block">
                         <a
                             href="#contact"
@@ -89,7 +85,6 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
                         </a>
                     </div>
 
-                    {/* Mobile Menu Button */}
                     <button
                         className="md:hidden text-slate-900"
                         onClick={() => setMenuOpen((prev) => !prev)}

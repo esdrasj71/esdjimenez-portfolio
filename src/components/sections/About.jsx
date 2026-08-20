@@ -5,8 +5,8 @@ export const About = () => {
     <section id="about" className="min-h-screen flex items-center justify-center py-20 bg-[#F7F9FC]">
       <RevealOnScroll>
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-2 text-center bg-gradient-to-r from-slate-900 to-blue-700 bg-clip-text text-transparent">
-            Professional Development
+          <h2 className="text-4xl font-bold mb-2 text-center text-slate-900 bg-gradient-to-r from-slate-900 to-blue-700 bg-clip-text text-transparent">
+            Professional Development          
           </h2>
           
           <p className="text-slate-600 mb-8 max-w-2xl mx-auto text-center">
