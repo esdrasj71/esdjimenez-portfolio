@@ -99,14 +99,11 @@ export const AboutMe = () => {
                   and systems come together.
                 </p>
                 <p>
-                    What I enjoy most is making complex systems more reliable, scalable, and easier to work with—whether 
-                    that means designing APIs, improving databases, or connecting services through microservices. I’m 
-                    always curious about how things work and looking for better ways to build them.
+                    Outside of software, I enjoy playing frisbee golf, photography and spending time with my dog, Cookie 🍪. 
+                    I also have a passion for exploring the world in general! Feel free to reach out if you’d like to 
+                    collaborate or just say hello.
                 </p>
-                <p>
-                  Feel free to reach out if you’d like to collaborate or just say hello.
-                </p>
-
+               
                 <div className="mt-1">
                   <div className="h-px w-full bg-slate-200/80 mb-6" />
                   <div className="flex flex-row flex-wrap items-center gap-3 sm:gap-4">

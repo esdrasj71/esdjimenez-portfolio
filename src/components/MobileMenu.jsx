@@ -15,7 +15,8 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
     e.preventDefault();
     setMenuOpen(false);
     
-    if (location.pathname === '/aboutme') {
+    // FIX: Added '/project_1' to the condition
+    if (location.pathname === '/aboutme' || location.pathname === '/project_1') {
       navigate('/#' + sectionId);
       setTimeout(() => {
         scrollToSection(sectionId);
@@ -28,7 +29,8 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
   const handleContactClick = (e) => {
     e.preventDefault();
     setMenuOpen(false);
-    if (location.pathname === '/aboutme') {
+    // FIX: Added '/project_1' to the condition
+    if (location.pathname === '/aboutme' || location.pathname === '/project_1') {
       navigate('/#contact');
       setTimeout(() => {
         scrollToSection('contact');

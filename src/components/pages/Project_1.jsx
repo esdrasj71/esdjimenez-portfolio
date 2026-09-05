@@ -13,11 +13,11 @@ export const Project_1 = () => {
               Project Management Platform
             </h1>
             <p className="text-md text-slate-600 max-w-56xl leading-relaxed">
-              A full-stack project management platform designed to streamline team collaboration, 
-              track project progress in real-time, and optimize workflow efficiency. This platform empowers 
-              organizations to manage multiple projects simultaneously, assign tasks effectively, 
-              monitor team performance, and deliver results faster through automated 
-              workflows and intelligent reporting systems.
+              A full-stack project management platform called FlowSpace. Designed to streamline team collaboration, 
+              track project progress in real-time, and optimize workflow efficiency. This platform simulates an 
+              environment where organizations can manage multiple projects simultaneously, assign tasks effectively, 
+              monitor team performance, and deliver results faster through automated workflows and intelligent 
+              reporting systems.
             </p>
           </div>
 
@@ -131,10 +131,16 @@ export const Project_1 = () => {
                   PostgreSQL
                 </span>
                 <span className="bg-red-50 text-red-700 px-3 py-1.5 rounded-full border border-red-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  JWT Authentication
+                  Clerk Authentication
                 </span>
                 <span className="bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-full border border-indigo-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  WebSocket
+                  Neon Database
+                </span>
+                <span className="bg-green-50 text-green-700 px-3 py-1.5 rounded-full border border-green-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
+                  Inngest
+                </span>
+                <span className="bg-purple-50 text-purple-700 px-3 py-1.5 rounded-full border border-purple-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
+                  TypeScript
                 </span>
               </div>
             </RevealOnScroll>
@@ -196,7 +202,7 @@ export const Project_1 = () => {
               🚀 Live Demo
             </a>
             <a
-              href="https://github.com/esdrasj71/Project-Management-Platform"
+              href="https://github.com/esdrasj71/FlowSpace-Platform"
               className="inline-flex items-center gap-2 bg-slate-800 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-slate-900 hover:scale-105 transition-all duration-300 shadow-md"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
