@@ -8,7 +8,7 @@ export const Projects = () => {
     e.preventDefault(); 
     navigate('/project_1');
   };
-  
+
   return (
     <section
       id="projects"
@@ -25,7 +25,7 @@ export const Projects = () => {
               <h3 className="text-xl font-bold mb-2"> Project Management Platform</h3>
               <p className="text-slate-600 mb-4">
                 A full-stack project management platform for managing organizations, projects, tasks, 
-                and teams with real-time notifications and email automation.
+                and teams with automated email notifications.
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {["ReactJS", "Node.js", "PostgreSQL", "ExpressJS"].map((tech, key) => (

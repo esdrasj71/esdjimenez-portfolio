@@ -10,14 +10,14 @@ export const Project_1 = () => {
         <div className="max-w-6xl mx-auto px-3">
           <div className="mb-6 p-6">
             <h1 className="text-4xl font-bold mb-3 text-slate-800">
-              Project Management Platform
+              FlowSpace — Project Management Platform
             </h1>
-            <p className="text-md text-slate-600 max-w-56xl leading-relaxed">
-              A full-stack project management platform called FlowSpace. Designed to streamline team collaboration, 
-              track project progress in real-time, and optimize workflow efficiency. This platform simulates an 
-              environment where organizations can manage multiple projects simultaneously, assign tasks effectively, 
-              monitor team performance, and deliver results faster through automated workflows and intelligent 
-              reporting systems.
+            <p className="text-md text-slate-650 max-w-56xl leading-relaxed">
+            A full-stack project management app built to help teams stay organized and ship faster.
+            FlowSpace lets users create workspaces, manage multiple projects at once, assign and track tasks.
+            This also helps to collaborate through real-time comments and role-based permissions. It combines a React
+            frontend, a Node.js/Express API, a PostgreSQL database, and event-driven workflows to
+            keep everything in sync, from user sign-up to task completion.
             </p>
           </div>
 
@@ -41,10 +41,10 @@ export const Project_1 = () => {
             <RevealOnScroll>
               <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
                 <div className="text-2xl mb-2">🎯</div>
-                <h3 className="text-base font-bold text-slate-800 mb-1">Project Tracking</h3>
+                <h3 className="text-base font-bold text-slate-800 mb-1">Project & Task Management</h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  Manage multiple projects with real-time progress tracking, milestone management, 
-                  and automated status updates.
+                    Create workspaces, organize multiple projects, and break work down into tasks with
+                    priorities, due dates, and statuses. Track progress at a glance.
                 </p>
               </div>
             </RevealOnScroll>
@@ -52,21 +52,22 @@ export const Project_1 = () => {
             <RevealOnScroll>
               <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
                 <div className="text-2xl mb-2">👥</div>
-                <h3 className="text-base font-bold text-slate-800 mb-1">Team Collaboration</h3>
+                <h3 className="text-base font-bold text-slate-800 mb-1">Team Collaboration & Roles</h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  Assign tasks, share files, and communicate with team members through 
-                  integrated chat and notification systems.
+                    Invite team members, assign tasks to the right people, and manage access with
+                    role-based permissions. Task level comments keep every discussion tied to its
+                    work item.
                 </p>
               </div>
             </RevealOnScroll>
 
             <RevealOnScroll>
               <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                <div className="text-2xl mb-2">📈</div>
-                <h3 className="text-base font-bold text-slate-800 mb-1">Analytics & Reports</h3>
+                <div className="text-2xl mb-2">🔐</div>
+                <h3 className="text-base font-bold text-slate-800 mb-1">Secure Auth</h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  Generate detailed reports on project performance, team productivity, 
-                  and resource allocation with visual dashboards.
+                    Sign in with Clerk-powered authentication, protected API routes, and automatic
+                    syncing of users and organizations to the database through event-driven workflows.
                 </p>
               </div>
             </RevealOnScroll>
@@ -81,32 +82,32 @@ export const Project_1 = () => {
               <RevealOnScroll>
                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center">
                   <div className="w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-2 text-sm font-bold">1</div>
-                  <h4 className="font-semibold text-slate-800 text-md mb-1">Create Project</h4>
-                  <p className="text-sm text-slate-600">Set up a new project with details, team members, and timeline</p>
+                  <h4 className="font-semibold text-slate-800 text-md mb-1">Create a Workspace</h4>
+                  <p className="text-sm text-slate-600">Sign up and set up a workspace for your team in seconds. No configuration, no hassle.</p>
                 </div>
               </RevealOnScroll>
 
               <RevealOnScroll>
                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center">
                   <div className="w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-2 text-sm font-bold">2</div>
-                  <h4 className="font-semibold text-slate-800 text-md mb-1">Assign Tasks</h4>
-                  <p className="text-sm text-slate-600">Break down projects into tasks and assign them to team members</p>
+                  <h4 className="font-semibold text-slate-800 text-md mb-1">Add Projects & Members</h4>
+                  <p className="text-sm text-slate-600">Invite teammates and organize work into projects with clear ownership.</p>
                 </div>
               </RevealOnScroll>
 
               <RevealOnScroll>
                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center">
                   <div className="w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-2 text-sm font-bold">3</div>
-                  <h4 className="font-semibold text-slate-800 text-md mb-1">Track Progress</h4>
-                  <p className="text-sm text-slate-600">Monitor task completion, update statuses, and track milestones</p>
+                  <h4 className="font-semibold text-slate-800 text-md mb-1">Assign & Track Tasks</h4>
+                  <p className="text-sm text-slate-600">Assign tasks, set priorities and due dates, and update statuses as work moves forward.</p>
                 </div>
               </RevealOnScroll>
 
               <RevealOnScroll>
                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center">
                   <div className="w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-2 text-sm font-bold">4</div>
-                  <h4 className="font-semibold text-slate-800 text-md mb-1">Deliver Results</h4>
-                  <p className="text-sm text-slate-600">Complete projects on time with full transparency and reporting</p>
+                  <h4 className="font-semibold text-slate-800 text-md mb-1">Collaborate & Deliver</h4>
+                  <p className="text-sm text-slate-600">Comment on tasks, track progress in real time, and keep everyone aligned until delivery.</p>
                 </div>
               </RevealOnScroll>
             </div>
@@ -145,6 +146,9 @@ export const Project_1 = () => {
                 <span className="bg-orange-50 text-orange-700 px-3 py-1.5 rounded-full border border-orange-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
                   Vercel
                 </span>
+                <span className="bg-red-50 text-red-700 px-3 py-1.5 rounded-full border border-red-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
+                  Brevo
+                </span>
               </div>
             </RevealOnScroll>
           </div>
@@ -158,8 +162,8 @@ export const Project_1 = () => {
                 <div className="flex items-start gap-2 bg-white p-3 rounded-xl border border-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
                   <span className="text-green-500 text-lg">✅</span>
                   <div>
-                    <h3 className="font-semibold text-slate-800 text-md">Real-time Notifications</h3>
-                    <p className="text-sm text-slate-600">Instant updates on task assignments, comments, and status changes</p>
+                    <h3 className="font-semibold text-slate-800 text-md">Event-Driven Sync</h3>
+                    <p className="text-sm text-slate-600">User and workspace data stay in sync automatically through background workflows</p>
                   </div>
                 </div>
               </RevealOnScroll>
@@ -169,7 +173,7 @@ export const Project_1 = () => {
                   <span className="text-green-500 text-lg">✅</span>
                   <div>
                     <h4 className="font-semibold text-slate-800 text-md">Role-Based Access</h4>
-                    <p className="text-sm text-slate-600">Different permissions for admins, project managers, and team members</p>
+                    <p className="text-sm text-slate-600">Different permissions for workspace admins, project leads, and team members</p>
                   </div>
                 </div>
               </RevealOnScroll>
@@ -178,8 +182,8 @@ export const Project_1 = () => {
                 <div className="flex items-start gap-2 bg-white p-3 rounded-xl border border-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
                   <span className="text-green-500 text-lg">✅</span>
                   <div>
-                    <h4 className="font-semibold text-slate-800 text-md">Email Automation</h4>
-                    <p className="text-sm text-slate-600">Automated email notifications for project updates and deadlines</p>
+                    <h4 className="font-semibold text-slate-800 text-md">Email Notifications</h4>
+                    <p className="text-sm text-slate-600">Automatic emails when tasks are assigned and reminders before due dates</p>
                   </div>
                 </div>
               </RevealOnScroll>
@@ -188,8 +192,8 @@ export const Project_1 = () => {
                 <div className="flex items-start gap-2 bg-white p-3 rounded-xl border border-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
                   <span className="text-green-500 text-lg">✅</span>
                   <div>
-                    <h4 className="font-semibold text-slate-800 text-md">Progress Dashboard</h4>
-                    <p className="text-sm text-slate-600">Visual analytics and charts to track project health and team performance</p>
+                    <h4 className="font-semibold text-slate-800 text-md">Task & Project Tracking</h4>
+                    <p className="text-sm text-slate-600">Organize work with statuses, priorities, due dates, and assignees, keeping every task on track.</p>
                   </div>
                 </div>
               </RevealOnScroll>
@@ -200,6 +204,8 @@ export const Project_1 = () => {
           <div className="flex flex-wrap gap-3">
             <a
               href="https://flow-space-mgt.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-md"
             >
               🚀 Live Demo
