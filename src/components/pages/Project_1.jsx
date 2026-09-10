@@ -29,7 +29,7 @@ export const Project_1 = () => {
                   <h3 className="text-xl font-semibold text-slate-700">Project Dashboard Preview</h3>
                   <p className="text-slate-500 text-sm mt-1">Screenshot of the main dashboard interface</p>
                   <div className="mt-3 inline-block bg-blue-100 text-blue-700 px-3 py-1.5 rounded-full text-xs font-medium">
-                    Coming Soon: Live Demo
+                    Documentation: In process
                   </div>
                 </div>
               </div>
@@ -142,6 +142,9 @@ export const Project_1 = () => {
                 <span className="bg-purple-50 text-purple-700 px-3 py-1.5 rounded-full border border-purple-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
                   TypeScript
                 </span>
+                <span className="bg-orange-50 text-orange-700 px-3 py-1.5 rounded-full border border-orange-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
+                  Vercel
+                </span>
               </div>
             </RevealOnScroll>
           </div>
@@ -196,7 +199,7 @@ export const Project_1 = () => {
           {/* Links Section */}
           <div className="flex flex-wrap gap-3">
             <a
-              href="#"
+              href="https://flow-space-mgt.vercel.app/"
               className="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-md"
             >
               🚀 Live Demo
@@ -214,7 +217,7 @@ export const Project_1 = () => {
 
           <div className="mt-6 p-3 bg-blue-50 border border-blue-200 rounded-lg max-w-xl">
             <p className="text-xs text-blue-700">
-              <strong>Note:</strong> This project is currently in development. Links to live demo will be available soon.
+              <strong>Note:</strong> This project is currently in production. Link to live demo now available.
             </p>
           </div>
         </div>
