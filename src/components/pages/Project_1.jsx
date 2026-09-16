@@ -1,8 +1,164 @@
 import { RevealOnScroll } from "../RevealOnScroll";
 import { useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect, useCallback } from "react";
+import photo_1 from "../../assets/carousel_p1/photo_1.png";
+import photo_2 from "../../assets/carousel_p1/photo_2.png";
+import photo_3 from "../../assets/carousel_p1/photo_3.png";
+import photo_4 from "../../assets/carousel_p1/photo_4.png";
+import photo_5 from "../../assets/carousel_p1/photo_5.png";
+import photo_6 from "../../assets/carousel_p1/photo_6.png";
+
+const IMAGES = [photo_1, photo_2, photo_3, photo_4, photo_5, photo_6];
+const LABELS = ["Photo 1", "Photo 2", "Photo 3", "Photo 4", "Photo 5", "Photo 6"];
 
 export const Project_1 = () => {
   const navigate = useNavigate();
+
+  const totalItems = IMAGES.length;
+
+  const [currentIndex, setCurrentIndex] = useState(2); 
+  const [translateX, setTranslateX] = useState(0);
+
+  const trackRef = useRef(null);
+  const viewportRef = useRef(null);
+
+  const dragState = useRef({
+    isDragging: false,
+    startX: 0,
+    startTranslate: 0,
+    currentTranslate: 0,
+  });
+
+  const recalcPosition = useCallback(() => {
+    const track = trackRef.current;
+    const viewport = viewportRef.current;
+    if (!track || !viewport) return;
+
+    const items = track.querySelectorAll(".carousel-item");
+    if (!items.length) return;
+
+    const activeItem = items[currentIndex];
+    const itemWidth = activeItem.offsetWidth;
+
+    const trackStyle = window.getComputedStyle(track);
+    const gap = parseFloat(trackStyle.columnGap || trackStyle.gap) || 24;
+    const step = itemWidth + gap;
+    const containerWidth = viewport.clientWidth;
+
+    const x = containerWidth / 2 - currentIndex * step - itemWidth / 2;
+    setTranslateX(x);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    recalcPosition();
+    const handleResize = () => recalcPosition();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [recalcPosition]);
+
+  useEffect(() => {
+    const imgs = trackRef.current?.querySelectorAll("img") || [];
+    imgs.forEach((img) => {
+      if (img.complete) return;
+      img.addEventListener("load", recalcPosition);
+    });
+    return () => {
+      imgs.forEach((img) => img.removeEventListener("load", recalcPosition));
+    };
+  }, [recalcPosition]);
+
+  const goToIndex = useCallback(
+    (index) => {
+      if (index < 0) index = totalItems - 1;
+      if (index >= totalItems) index = 0;
+
+      const isWrapAround = Math.abs(index - currentIndex) > 1;
+      if (isWrapAround && trackRef.current) {
+        trackRef.current.style.transition = "none";
+        void trackRef.current.offsetHeight; 
+      }
+
+      setCurrentIndex(index);
+    },
+    [currentIndex, totalItems]
+  );
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const id = requestAnimationFrame(() => {
+      track.style.transition = "";
+    });
+    return () => cancelAnimationFrame(id);
+  }, [currentIndex]);
+
+  const nextSlide = useCallback(
+    () => goToIndex(currentIndex + 1),
+    [currentIndex, goToIndex]
+  );
+  const prevSlide = useCallback(
+    () => goToIndex(currentIndex - 1),
+    [currentIndex, goToIndex]
+  );
+
+  // ----- Keyboard nav -----
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === "ArrowLeft") prevSlide();
+      if (e.key === "ArrowRight") nextSlide();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [prevSlide, nextSlide]);
+
+  const handleDragStart = (clientX) => {
+    const track = trackRef.current;
+    if (!track) return;
+    dragState.current.isDragging = true;
+    dragState.current.startX = clientX;
+    dragState.current.startTranslate = translateX;
+    track.style.transition = "none";
+  };
+
+  const handleDragMove = (clientX) => {
+    if (!dragState.current.isDragging) return;
+    const track = trackRef.current;
+    if (!track) return;
+    const dx = clientX - dragState.current.startX;
+    const newX = dragState.current.startTranslate + dx;
+    dragState.current.currentTranslate = newX;
+    track.style.transform = `translateX(${newX}px)`;
+  };
+
+  const handleDragEnd = (clientX) => {
+    if (!dragState.current.isDragging) return;
+    dragState.current.isDragging = false;
+    const track = trackRef.current;
+    if (track) {
+      track.style.transition = "";
+    }
+    const dx = clientX - dragState.current.startX;
+    if (Math.abs(dx) > 50) {
+      if (dx > 0) prevSlide();
+      else nextSlide();
+    } else {
+      recalcPosition();
+    }
+  };
+
+  const onMouseDown = (e) => {
+    e.preventDefault();
+    handleDragStart(e.clientX);
+  };
+  const onMouseMove = (e) => handleDragMove(e.clientX);
+  const onMouseUp = (e) => handleDragEnd(e.clientX);
+  const onMouseLeave = (e) => {
+    if (dragState.current.isDragging) handleDragEnd(e.clientX);
+  };
+
+  const onTouchStart = (e) => handleDragStart(e.touches[0].clientX);
+  const onTouchMove = (e) => handleDragMove(e.touches[0].clientX);
+  const onTouchEnd = (e) => handleDragEnd(e.changedTouches[0].clientX);
 
   return (
     <section className="min-h-screen py-24 bg-[#F7F9FC]">
@@ -13,38 +169,145 @@ export const Project_1 = () => {
               FlowSpace — Project Management Platform
             </h1>
             <p className="text-md text-slate-650 max-w-56xl leading-relaxed">
-            A full-stack project management app built to help teams stay organized and ship faster.
-            FlowSpace lets users create workspaces, manage multiple projects at once, assign and track tasks.
-            This also helps to collaborate through real-time comments and role-based permissions. It combines a React
-            frontend, a Node.js/Express API, a PostgreSQL database, and event-driven workflows to
-            keep everything in sync, from user sign-up to task completion.
+              A full-stack project management app built to help teams stay organized and ship faster.
+              FlowSpace lets users create workspaces, manage multiple projects at once, assign and track tasks.
+              This also helps to collaborate through real-time comments and role-based permissions. It combines a React
+              frontend, a Node.js/Express API, a PostgreSQL database, and event-driven workflows to
+              keep everything in sync, from user sign-up to task completion.
             </p>
           </div>
 
-          <div className="mb-8">
-            <div className="rounded-xl overflow-hidden border border-slate-200 shadow-md bg-white">
-              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 flex items-center justify-center min-h-[300px]">
-                <div className="text-center">
-                  <div className="text-5xl mb-3">📊</div>
-                  <h3 className="text-xl font-semibold text-slate-700">Project Dashboard Preview</h3>
-                  <p className="text-slate-500 text-sm mt-1">Screenshot of the main dashboard interface</p>
-                  <div className="mt-3 inline-block bg-blue-100 text-blue-700 px-3 py-1.5 rounded-full text-xs font-medium">
-                    Documentation: In process
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* ====== 3D CAROUSEL ====== */}
+            <div className="mb-8">
+            <div className="carousel-wrapper">
+                <div className="carousel-inner">
+                    
+                {/* Header */}
+                <h3 className="carousel-title">Preview</h3>
+                <div className="carousel-divider"></div>
+                <p className="carousel-subtitle">
+                    Explore the interface
+                </p>
 
-          {/* What It Does Section with Animation */}
+                {/* Carousel */}
+                <div className="carousel-container select-none">
+                    <div
+                    className="carousel-viewport"
+                    ref={viewportRef}
+                    onMouseDown={onMouseDown}
+                    onMouseMove={onMouseMove}
+                    onMouseUp={onMouseUp}
+                    onMouseLeave={onMouseLeave}
+                    onTouchStart={onTouchStart}
+                    onTouchMove={onTouchMove}
+                    onTouchEnd={onTouchEnd}
+                    >
+                    <div
+                        className="carousel-track"
+                        ref={trackRef}
+                        style={{ transform: `translateX(${translateX}px)` }}
+                    >
+                        {IMAGES.map((src, idx) => (
+                        <div
+                            key={idx}
+                            className={`carousel-item ${idx === currentIndex ? "active" : ""}`}
+                            onClick={() => goToIndex(idx)}
+                        >
+                            <div className="carousel-card">
+                            <div className="relative">
+                                <img
+                                src={src}
+                                alt={`FlowSpace screenshot ${idx + 1}`}
+                                className="w-full h-auto object-contain bg-slate-100 pointer-events-none"
+                                draggable={false}
+                                />
+                                <div className="carousel-badge-label">
+                                {LABELS[idx]}
+                                </div>
+                                <div className="carousel-badge-counter">
+                                {idx + 1} / {totalItems}
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        ))}
+                    </div>
+                    </div>
+                </div>
+
+                {/* Controls */}
+                <div className="flex items-center justify-center gap-4 mt-8">
+                    <button
+                    onClick={prevSlide}
+                    className="carousel-nav-btn"
+                    aria-label="Previous slide"
+                    >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    >
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    </button>
+
+                    <div className="flex gap-2 items-center">
+                    {IMAGES.map((_, idx) => (
+                        <button
+                        key={idx}
+                        className={`carousel-dot ${idx === currentIndex ? "active" : ""}`}
+                        onClick={() => goToIndex(idx)}
+                        aria-label={`Go to slide ${idx + 1}`}
+                        />
+                    ))}
+                    </div>
+
+                    <button
+                    onClick={nextSlide}
+                    className="carousel-nav-btn"
+                    aria-label="Next slide"
+                    >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    >
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                    </button>
+                </div>
+
+                <div className="text-center mt-6">
+                    <div className="carousel-doc-pill">
+                    Documentation in process
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            {/* ====== END 3D CAROUSEL ====== */}
+
+          {/* What It Does Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <RevealOnScroll>
               <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
                 <div className="text-2xl mb-2">🎯</div>
                 <h3 className="text-base font-bold text-slate-800 mb-1">Project & Task Management</h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                    Create workspaces, organize multiple projects, and break work down into tasks with
-                    priorities, due dates, and statuses. Track progress at a glance.
+                  Create workspaces, organize multiple projects, and break work down into tasks with
+                  priorities, due dates, and statuses. Track progress at a glance.
                 </p>
               </div>
             </RevealOnScroll>
@@ -54,9 +317,9 @@ export const Project_1 = () => {
                 <div className="text-2xl mb-2">👥</div>
                 <h3 className="text-base font-bold text-slate-800 mb-1">Team Collaboration & Roles</h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                    Invite team members, assign tasks to the right people, and manage access with
-                    role-based permissions. Task level comments keep every discussion tied to its
-                    work item.
+                  Invite team members, assign tasks to the right people, and manage access with
+                  role-based permissions. Task level comments keep every discussion tied to its
+                  work item.
                 </p>
               </div>
             </RevealOnScroll>
@@ -66,8 +329,8 @@ export const Project_1 = () => {
                 <div className="text-2xl mb-2">🔐</div>
                 <h3 className="text-base font-bold text-slate-800 mb-1">Secure Auth</h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                    Sign in with Clerk-powered authentication, protected API routes, and automatic
-                    syncing of users and organizations to the database through event-driven workflows.
+                  Sign in with Clerk-powered authentication, protected API routes, and automatic
+                  syncing of users and organizations to the database through event-driven workflows.
                 </p>
               </div>
             </RevealOnScroll>
@@ -119,36 +382,16 @@ export const Project_1 = () => {
             </RevealOnScroll>
             <RevealOnScroll>
               <div className="flex flex-wrap gap-2">
-                <span className="bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full border border-blue-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  ReactJS
-                </span>
-                <span className="bg-green-50 text-green-700 px-3 py-1.5 rounded-full border border-green-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  Node.js
-                </span>
-                <span className="bg-purple-50 text-purple-700 px-3 py-1.5 rounded-full border border-purple-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  ExpressJS
-                </span>
-                <span className="bg-orange-50 text-orange-700 px-3 py-1.5 rounded-full border border-orange-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  PostgreSQL
-                </span>
-                <span className="bg-red-50 text-red-700 px-3 py-1.5 rounded-full border border-red-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  Clerk Authentication
-                </span>
-                <span className="bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-full border border-indigo-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  Neon Database
-                </span>
-                <span className="bg-green-50 text-green-700 px-3 py-1.5 rounded-full border border-green-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  Inngest
-                </span>
-                <span className="bg-purple-50 text-purple-700 px-3 py-1.5 rounded-full border border-purple-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  TypeScript
-                </span>
-                <span className="bg-orange-50 text-orange-700 px-3 py-1.5 rounded-full border border-orange-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  Vercel
-                </span>
-                <span className="bg-red-50 text-red-700 px-3 py-1.5 rounded-full border border-red-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">
-                  Brevo
-                </span>
+                <span className="bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full border border-blue-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">ReactJS</span>
+                <span className="bg-green-50 text-green-700 px-3 py-1.5 rounded-full border border-green-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">Node.js</span>
+                <span className="bg-purple-50 text-purple-700 px-3 py-1.5 rounded-full border border-purple-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">ExpressJS</span>
+                <span className="bg-orange-50 text-orange-700 px-3 py-1.5 rounded-full border border-orange-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">PostgreSQL</span>
+                <span className="bg-red-50 text-red-700 px-3 py-1.5 rounded-full border border-red-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">Clerk Authentication</span>
+                <span className="bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-full border border-indigo-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">Neon Database</span>
+                <span className="bg-green-50 text-green-700 px-3 py-1.5 rounded-full border border-green-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">Inngest</span>
+                <span className="bg-purple-50 text-purple-700 px-3 py-1.5 rounded-full border border-purple-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">TypeScript</span>
+                <span className="bg-orange-50 text-orange-700 px-3 py-1.5 rounded-full border border-orange-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">Vercel</span>
+                <span className="bg-red-50 text-red-700 px-3 py-1.5 rounded-full border border-red-200 text-sm font-medium hover:scale-105 hover:shadow-md transition-all duration-300 cursor-default">Brevo</span>
               </div>
             </RevealOnScroll>
           </div>
@@ -212,6 +455,8 @@ export const Project_1 = () => {
             </a>
             <a
               href="https://github.com/esdrasj71/FlowSpace-Platform"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-slate-800 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-slate-900 hover:scale-105 transition-all duration-300 shadow-md"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
