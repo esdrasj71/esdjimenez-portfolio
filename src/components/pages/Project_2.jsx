@@ -13,11 +13,9 @@ export const Project_2 = () => {
 
   const totalItems = IMAGES.length;
 
-  // ----- Carousel state -----
   const [currentIndex, setCurrentIndex] = useState(2);
   const [translateX, setTranslateX] = useState(0);
 
-  // ----- Lightbox state -----
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -31,7 +29,6 @@ export const Project_2 = () => {
     currentTranslate: 0,
   });
 
-  // ----- Recalculate translation to center active item -----
   const recalcPosition = useCallback(() => {
     const track = trackRef.current;
     const viewport = viewportRef.current;
@@ -70,7 +67,7 @@ export const Project_2 = () => {
     };
   }, [recalcPosition]);
 
-  // ----- Carousel navigation -----
+  // ----- Carousel navigation 
   const goToIndex = useCallback(
     (index) => {
       if (index < 0) index = totalItems - 1;
@@ -105,7 +102,6 @@ export const Project_2 = () => {
     [currentIndex, goToIndex]
   );
 
-  // ----- Lightbox functions -----
   const openLightbox = useCallback((index) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
@@ -123,7 +119,7 @@ export const Project_2 = () => {
     setLightboxIndex((i) => (i - 1 + totalItems) % totalItems);
   }, [totalItems]);
 
-  // Keyboard: ESC closes lightbox, arrows navigate (when open)
+  // Keyboard: ESC closes 
   useEffect(() => {
     if (!lightboxOpen) return;
 
@@ -143,7 +139,6 @@ export const Project_2 = () => {
     };
   }, [lightboxOpen, closeLightbox, nextLightbox, prevLightbox]);
 
-  // Keyboard: carousel nav (when lightbox is CLOSED)
   useEffect(() => {
     if (lightboxOpen) return;
 
@@ -155,7 +150,6 @@ export const Project_2 = () => {
     return () => window.removeEventListener("keydown", handleKey);
   }, [lightboxOpen, prevSlide, nextSlide]);
 
-  // ----- Drag handlers -----
   const handleDragStart = (clientX) => {
     const track = trackRef.current;
     if (!track) return;
@@ -726,7 +720,6 @@ export const Project_2 = () => {
             </button>
           )}
 
-          {/* Hint */}
           <div className="lightbox-hint">
             Press <kbd>ESC</kbd> to close · <kbd>←</kbd> <kbd>→</kbd> to navigate
           </div>
