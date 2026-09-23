@@ -1,21 +1,22 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+  import { Link, useLocation, useNavigate } from "react-router-dom";
 
-export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
+    const location = useLocation();
+    const navigate = useNavigate();
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+    const scrollToSection = (sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
 
-  const handleNavClick = (sectionId, e) => {
+    const handleNavClick = (sectionId, e) => {
     e.preventDefault();
     setMenuOpen(false);
     
-    if (location.pathname === '/aboutme' || location.pathname === '/project_1') {
+    // If not on home page, navigate to home first, then scroll
+    if (location.pathname !== '/') {
       navigate('/#' + sectionId);
       setTimeout(() => {
         scrollToSection(sectionId);
@@ -29,7 +30,7 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
     e.preventDefault();
     setMenuOpen(false);
     
-    if (location.pathname === '/aboutme' || location.pathname === '/project_1') {
+    if (location.pathname !== '/') {
       navigate('/#contact');
       setTimeout(() => {
         scrollToSection('contact');
@@ -39,54 +40,54 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
     }
   };
 
-  const navItems = [
-    { id: "home", label: "Home" },
-    { id: "experience", label: "Experience" },
-    { id: "projects", label: "Projects" },
-    { id: "about", label: "More" },
-  ];
+    const navItems = [
+      { id: "home", label: "Home" },
+      { id: "experience", label: "Experience" },
+      { id: "projects", label: "Projects" },
+      { id: "about", label: "More" },
+    ];
 
-  return (
-    <div
-      className={`fixed top-0 left-0 w-full bg-[#EFF1F5] z-40 flex flex-col items-center justify-center px-6
-                     transition-all duration-300 ease-in-out
-                     ${
-                       menuOpen
-                         ? "h-screen opacity-100 pointer-events-auto"
-                         : "h-0 opacity-0 pointer-events-none"
-                     }
-                   `}
-    >
-      <button
-        onClick={() => setMenuOpen(false)}
-        className="absolute top-4 right-6 text-slate-900 text-3xl focus:outline-none cursor-pointer"
-        aria-label="Close Menu"
+    return (
+      <div
+        className={`fixed top-0 left-0 w-full bg-[#EFF1F5] z-40 flex flex-col items-center justify-center px-6
+                      transition-all duration-300 ease-in-out
+                      ${
+                        menuOpen
+                          ? "h-screen opacity-100 pointer-events-auto"
+                          : "h-0 opacity-0 pointer-events-none"
+                      }
+                    `}
       >
-        &times;
-      </button>
+        <button
+          onClick={() => setMenuOpen(false)}
+          className="absolute top-4 right-6 text-slate-900 text-3xl focus:outline-none cursor-pointer"
+          aria-label="Close Menu"
+        >
+          &times;
+        </button>
 
-      {navItems.map((item) => (
+        {navItems.map((item) => (
+          <a
+            key={item.id}
+            href={`#${item.id}`}
+            onClick={(e) => handleNavClick(item.id, e)}
+            className={`text-2xl font-semibold text-slate-900 my-3 transform transition-transform duration-300 cursor-pointer ${
+              menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+          >
+            {item.label}
+          </a>
+        ))}
+
         <a
-          key={item.id}
-          href={`#${item.id}`}
-          onClick={(e) => handleNavClick(item.id, e)}
-          className={`text-2xl font-semibold text-slate-900 my-3 transform transition-transform duration-300 cursor-pointer ${
+          href="#contact"
+          onClick={handleContactClick}
+          className={`mt-4 inline-flex rounded-full bg-slate-900 px-7 py-3 text-sm font-semibold text-white transition cursor-pointer ${
             menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
           }`}
         >
-          {item.label}
+          Contact Me
         </a>
-      ))}
-
-      <a
-        href="#contact"
-        onClick={handleContactClick}
-        className={`mt-4 inline-flex rounded-full bg-slate-900 px-7 py-3 text-sm font-semibold text-white transition cursor-pointer ${
-          menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-        }`}
-      >
-        Contact Me
-      </a>
-    </div>
-  );
-};
+      </div>
+    );
+  };

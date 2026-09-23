@@ -20,7 +20,7 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
         e.preventDefault();
         setMenuOpen(false);
         
-        if (location.pathname === '/aboutme' || location.pathname === '/project_1') {
+        if (location.pathname !== '/') {
             navigate('/#' + sectionId);
             setTimeout(() => {
                 scrollToSection(sectionId);
@@ -32,7 +32,7 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
 
     const handleContactClick = (e) => {
         e.preventDefault();
-        if (location.pathname === '/aboutme' || location.pathname === '/project_1') {
+        if (location.pathname !== '/') {
             navigate('/#contact');
             setTimeout(() => {
                 scrollToSection('contact');

@@ -92,8 +92,10 @@ body {
   animation: glow 0.3s ease-in-out forwards;
 }
 
-/*  3D CAROUSEL */
-/* Gradient background */
+/* ============================================
+   3D CAROUSEL
+   ============================================ */
+
 :root {
   --carousel-bg-1: #f8fafc;
   --carousel-bg-2: #e0e7ff;
@@ -106,12 +108,10 @@ body {
   --carousel-accent-2-rgb: 37, 99, 235;
   --carousel-accent-3-rgb: 59, 130, 246;
 
-  /* Neutral text on light */
   --carousel-text: #0f172a; /* slate-900 */
   --carousel-text-muted: #475569; /* slate-600 */
 }
 
-/* Outer wrapper */
 .carousel-wrapper {
   position: relative;
   border-radius: 20px;
@@ -128,7 +128,6 @@ body {
     0 20px 50px -12px rgba(59, 130, 246, 0.18);
 }
 
-/* Soft glow orbs — subtle on light */
 .carousel-wrapper::before,
 .carousel-wrapper::after {
   content: "";
@@ -191,7 +190,6 @@ body {
   padding: 32px 24px;
 }
 
-/* Title — dark gradient matching the page */
 .carousel-title {
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   font-weight: 800;
@@ -205,7 +203,6 @@ body {
   margin-bottom: 8px;
 }
 
-/* Divider */
 .carousel-divider {
   width: 60px;
   height: 3px;
@@ -219,14 +216,13 @@ body {
   box-shadow: 0 0 20px rgba(var(--carousel-accent-2-rgb), 0.4);
 }
 
-/* Subtitle */
 .carousel-subtitle {
   text-align: center;
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(30, 58, 138, 0.7); /* deep blue-gray */
+  color: rgba(30, 58, 138, 0.7);
   margin-bottom: 28px;
   display: flex;
   align-items: center;
@@ -247,7 +243,6 @@ body {
   );
 }
 
-/* Carousel mechanics */
 .carousel-container {
   perspective: 1600px;
   perspective-origin: 50% 50%;
@@ -296,7 +291,6 @@ body {
   z-index: 10;
 }
 
-/* Soft blue glow behind active card */
 .carousel-item.active::before {
   content: "";
   position: absolute;
@@ -323,7 +317,6 @@ body {
   }
 }
 
-/* Card — keeps a light frame with a strong shadow */
 .carousel-card {
   border-radius: 16px;
   overflow: hidden;
@@ -345,12 +338,11 @@ body {
     0 0 40px rgba(var(--carousel-accent-3-rgb), 0.25);
 }
 
-/* Badges — light theme friendly */
 .carousel-badge-label {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: rgba(15, 23, 42, 0.85); /* dark slate glass */
+  background: rgba(15, 23, 42, 0.85);
   backdrop-filter: blur(10px);
   color: white;
   font-size: 11px;
@@ -378,12 +370,11 @@ body {
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
 }
 
-/* Dots */
 .carousel-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(30, 58, 138, 0.2); /* soft blue-gray */
+  background: rgba(30, 58, 138, 0.2);
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   cursor: pointer;
   border: none;
@@ -406,7 +397,6 @@ body {
   box-shadow: 0 0 16px rgba(var(--carousel-accent-2-rgb), 0.6);
 }
 
-/* Viewport */
 .carousel-viewport {
   overflow: hidden;
   width: 100%;
@@ -417,7 +407,6 @@ body {
   cursor: grabbing;
 }
 
-/* Nav buttons — light theme with blue accents */
 .carousel-nav-btn {
   display: flex;
   align-items: center;
@@ -454,7 +443,6 @@ body {
   transform: scale(0.96);
 }
 
-/* Doc pill — light theme with blue dot */
 .carousel-doc-pill {
   display: inline-flex;
   align-items: center;
@@ -491,7 +479,41 @@ body {
   }
 }
 
-/* Responsive */
+/* Expand button on active carousel card */
+.carousel-expand-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all 0.25s ease;
+  z-index: 5;
+}
+
+.carousel-item.active:hover .carousel-expand-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.carousel-expand-btn:hover {
+  background: rgba(59, 130, 246, 0.9);
+  transform: scale(1.1);
+  border-color: rgba(59, 130, 246, 1);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6);
+}
+
+/* Carousel responsive */
 @media (max-width: 1024px) {
   .carousel-item {
     flex: 0 0 480px;
@@ -513,5 +535,199 @@ body {
 @media (max-width: 480px) {
   .carousel-item {
     flex: 0 0 280px;
+  }
+}
+
+/* ============================================
+   LIGHTBOX — fullscreen image viewer
+   ============================================ */
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(2, 6, 23, 0.92);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  animation: lightboxFadeIn 0.25s ease;
+}
+
+@keyframes lightboxFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 95vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lightboxZoomIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes lightboxZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.lightbox-image {
+  max-width: 95vw;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: -48px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.08) rotate(90deg);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.lightbox-nav:hover {
+  background: rgba(59, 130, 246, 0.6);
+  transform: translateY(-50%) scale(1.1);
+  border-color: rgba(59, 130, 246, 0.8);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.5);
+}
+
+.lightbox-prev {
+  left: 24px;
+}
+
+.lightbox-next {
+  right: 24px;
+}
+
+.lightbox-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.lightbox-hint kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Lightbox responsive */
+@media (max-width: 640px) {
+  .lightbox-overlay {
+    padding: 16px;
+  }
+  .lightbox-close {
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+  }
+  .lightbox-nav {
+    width: 44px;
+    height: 44px;
+  }
+  .lightbox-prev {
+    left: 8px;
+  }
+  .lightbox-next {
+    right: 8px;
+  }
+  .lightbox-hint {
+    display: none;
+  }
+  .lightbox-counter {
+    bottom: -40px;
+    font-size: 12px;
+    padding: 6px 12px;
   }
 }

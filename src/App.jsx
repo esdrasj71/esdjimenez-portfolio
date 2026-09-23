@@ -10,6 +10,7 @@ import { About } from "./components/sections/About";
 import { Projects } from "./components/sections/Projects";
 import { Contact } from "./components/sections/Contact";
 import { Project_1 } from "./components/pages/Project_1";
+import { Project_2} from "./components/pages/Project_2"
 import { AboutMe } from "./components/pages/AboutMe";
 import { Footer } from "./components/Footer";
 import "./index.css";
@@ -71,6 +72,7 @@ function App() {
 
             <Route path="/aboutme" element={<AboutMe />} />
             <Route path="/project_1" element={<Project_1 />} />
+            <Route path="/project_2" element={<Project_2 />} />
           </Routes>
           <Footer />
         </div>
