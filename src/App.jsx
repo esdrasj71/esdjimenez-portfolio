@@ -10,18 +10,17 @@ import { About } from "./components/sections/About";
 import { Projects } from "./components/sections/Projects";
 import { Contact } from "./components/sections/Contact";
 import { Project_1 } from "./components/pages/Project_1";
-import { Project_2} from "./components/pages/Project_2"
+import { Project_2 } from "./components/pages/Project_2";
+import { Project_3 } from "./components/pages/Project_3";
 import { AboutMe } from "./components/pages/AboutMe";
 import { Footer } from "./components/Footer";
 import "./index.css";
 
-// In App.jsx
 function ScrollHandler() {
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Scroll reset to top when navigating to any page
     window.scrollTo(0, 0);
 
     if (location.pathname === '/' && location.hash) {
@@ -73,6 +72,7 @@ function App() {
             <Route path="/aboutme" element={<AboutMe />} />
             <Route path="/project_1" element={<Project_1 />} />
             <Route path="/project_2" element={<Project_2 />} />
+            <Route path="/project_3" element={<Project_3 />} />
           </Routes>
           <Footer />
         </div>

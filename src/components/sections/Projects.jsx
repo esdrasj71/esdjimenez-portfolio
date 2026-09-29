@@ -14,6 +14,11 @@ export const Projects = () => {
         navigate('/project_2');
     };
 
+    const handleProject3Click = (e) => {
+        e.preventDefault(); 
+        navigate('/project_3');
+    };
+
   return (
     <section
       id="projects"
@@ -98,7 +103,7 @@ export const Projects = () => {
                 a live analytics dashboard showing real-time traffic insights. COMING SOON ...
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
-                {["C#", ".NET", "PostgreSQL", "Redis", "React"].map(
+                {["C#", ".NET", "PostgreSQL", "Redis", "Angular"].map(
                   (tech) => (
                     <span
                       key={tech}
@@ -117,7 +122,7 @@ export const Projects = () => {
               </div>
               <div className="flex justify-between items-center">
                 <a
-                  href="#"
+                  onClick={handleProject3Click}
                   className="text-blue-400 hover:text-blue-300 transition-colors my-4"
                 >
                   View Project →
