@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect, useCallback } from "react";
 import photo_1 from "../../assets/carousel_p3/photo_1.png";
 import photo_2 from "../../assets/carousel_p3/photo_2.png";
-import photo_3 from "../../assets/carousel_p3/photo_3.png";
+import photo_3 from "../../assets/carousel_p3/photo_5.png";
 import photo_4 from "../../assets/carousel_p3/photo_4.png";
+import photo_5 from "../../assets/carousel_p3/photo_3.png";
+import photo_6 from "../../assets/carousel_p3/photo_6.png";
 
-const IMAGES = [photo_1, photo_2, photo_3, photo_4];
+const IMAGES = [photo_1, photo_2, photo_3, photo_4, photo_5, photo_6];
 
 export const Project_3 = () => {
   const navigate = useNavigate();
@@ -230,7 +232,7 @@ export const Project_3 = () => {
                 <p className="carousel-subtitle">Explore</p>
 
                 {/* Carousel */}
-                <div className="carousel-container select-none mb-3">
+                <div className="carousel-container select-none">
                   <div
                     className="carousel-viewport"
                     ref={viewportRef}
