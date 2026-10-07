@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { RevealOnScroll } from "../RevealOnScroll";
 import emailjs from "emailjs-com";
  
 export const Contact = () => {
@@ -14,6 +13,21 @@ export const Contact = () => {
     if (publicKey) {
       emailjs.init(publicKey);
     }
+  }, []);
+
+  useEffect(() => {
+    const formCard = document.querySelector("#contact .contact-form-card");
+    if (!formCard) return undefined;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        formCard.classList.add("is-visible");
+        observer.unobserve(formCard);
+      }
+    }, { threshold: 0.15 });
+
+    observer.observe(formCard);
+    return () => observer.disconnect();
   }, []);
 
   const handleSubmit = (e) => {
@@ -50,23 +64,30 @@ export const Contact = () => {
   return (
     <section
       id="contact"
-      className="min-h-screen flex items-center justify-center py-20"
+      className="contact-section min-h-screen flex items-center justify-center section-ambient-section"
     >
-      <RevealOnScroll>
-        <div className="px-4 w-full min-w-[300px] md:w-[500px] sm:w-2/3 p-6">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-slate-900 to-blue-700 bg-clip-text text-transparent text-center">
-            {" "}
-            Get In Touch
-          </h2>
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="relative">
+      <div className="section-ambient" aria-hidden="true">
+        <div className="section-ambient-gradient section-ambient-gradient--contact motion-safe:animate-ambient-contact" />
+        <div className="section-ambient-noise bg-noise bg-repeat" />
+      </div>
+      <div className="contact-inner">
+        <header className="contact-header chapter-header">
+          <p className="chapter-eyebrow">05 — Contact</p>
+          <h2>Get In Touch</h2>
+          <div className="chapter-divider" aria-hidden="true" />
+          <p className="contact-subtitle">Have a role, project, or question? I usually reply within a day.</p>
+        </header>
+        <div className="contact-form-card" style={{ "--card-index": 0 }}>
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <div className="contact-field">
+              <label htmlFor="name">Name</label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 required
                 value={formData.name}
-                className="w-full bg-white border border-slate-300 rounded px-4 py-3 text-slate-900 transition focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                className="contact-input"
                 placeholder="Name..."
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
@@ -74,14 +95,15 @@ export const Contact = () => {
               />
             </div>
 
-            <div className="relative">
+            <div className="contact-field">
+              <label htmlFor="email">Email</label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 required
                 value={formData.email}
-                className="w-full bg-white border border-slate-300 rounded px-4 py-3 text-slate-900 transition focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                className="contact-input"
                 placeholder="example@gmail.com"
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
@@ -89,14 +111,15 @@ export const Contact = () => {
               />
             </div>
 
-            <div className="relative">
+            <div className="contact-field">
+              <label htmlFor="message">Message</label>
               <textarea
                 id="message"
                 name="message"
                 required
                 rows={6}
                 value={formData.message}
-                className="w-full bg-white border border-slate-300 rounded px-4 py-3 text-slate-900 transition focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                className="contact-input contact-textarea"
                 placeholder="Your Message..."
                 onChange={(e) =>
                   setFormData({ ...formData, message: e.target.value })
@@ -106,13 +129,13 @@ export const Contact = () => {
 
             <button
               type="submit"
-              className="w-full bg-slate-900 text-white py-3 px-6 rounded font-medium transition relative overflow-hidden hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(15,23,42,0.25)]"
+              className="contact-submit"
             >
               Send Message
             </button>
           </form>
         </div>
-      </RevealOnScroll>
+      </div>
     </section>
   );
 };

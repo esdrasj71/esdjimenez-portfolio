@@ -1,23 +1,29 @@
-  import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-  export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
-    const location = useLocation();
-    const navigate = useNavigate();
+export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const scrollToSection = (sectionId) => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    };
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-    const handleNavClick = (sectionId, e) => {
+  const handleNavClick = (item, e) => {
     e.preventDefault();
     setMenuOpen(false);
-    
-    // If not on home page, navigate to home first, then scroll
-    if (location.pathname !== '/') {
-      navigate('/#' + sectionId);
+
+    if (item.type === "route") {
+      navigate(item.path);
+      return;
+    }
+
+    const sectionId = item.id;
+
+    if (location.pathname !== "/") {
+      navigate("/#" + sectionId);
       setTimeout(() => {
         scrollToSection(sectionId);
       }, 100);
@@ -29,65 +35,71 @@
   const handleContactClick = (e) => {
     e.preventDefault();
     setMenuOpen(false);
-    
-    if (location.pathname !== '/') {
-      navigate('/#contact');
+
+    if (location.pathname !== "/") {
+      navigate("/#contact");
       setTimeout(() => {
-        scrollToSection('contact');
+        scrollToSection("contact");
       }, 100);
     } else {
-      scrollToSection('contact');
+      scrollToSection("contact");
     }
   };
 
-    const navItems = [
-      { id: "home", label: "Home" },
-      { id: "experience", label: "Experience" },
-      { id: "projects", label: "Projects" },
-      { id: "about", label: "More" },
-    ];
+  const navItems = [
+    { id: "home", label: "Home", type: "scroll" },
+    { id: "experience", label: "Experience", type: "scroll" },
+    { id: "projects", label: "Projects", type: "scroll" },
+    { id: "aboutme", label: "About Me", type: "route", path: "/aboutme" },
+    { id: "about", label: "More", type: "scroll" },
+  ];
 
-    return (
-      <div
-        className={`fixed top-0 left-0 w-full bg-[#EFF1F5] z-40 flex flex-col items-center justify-center px-6
-                      transition-all duration-300 ease-in-out
-                      ${
-                        menuOpen
-                          ? "h-screen opacity-100 pointer-events-auto"
-                          : "h-0 opacity-0 pointer-events-none"
-                      }
-                    `}
+  return (
+    <div
+      className={`mobile-menu ${menuOpen ? "is-open" : ""}`}
+      aria-hidden={!menuOpen}
+    >
+      <button
+        onClick={() => setMenuOpen(false)}
+        className="mobile-menu-close"
+        aria-label="Close Menu"
       >
-        <button
-          onClick={() => setMenuOpen(false)}
-          className="absolute top-4 right-6 text-slate-900 text-3xl focus:outline-none cursor-pointer"
-          aria-label="Close Menu"
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
         >
-          &times;
-        </button>
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
 
+      <nav className="mobile-menu-nav">
         {navItems.map((item) => (
           <a
             key={item.id}
-            href={`#${item.id}`}
-            onClick={(e) => handleNavClick(item.id, e)}
-            className={`text-2xl font-semibold text-slate-900 my-3 transform transition-transform duration-300 cursor-pointer ${
-              menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-            }`}
+            href={item.type === "route" ? item.path : `#${item.id}`}
+            onClick={(e) => handleNavClick(item, e)}
+            className="mobile-menu-link"
           >
             {item.label}
           </a>
         ))}
+      </nav>
 
-        <a
-          href="#contact"
-          onClick={handleContactClick}
-          className={`mt-4 inline-flex rounded-full bg-slate-900 px-7 py-3 text-sm font-semibold text-white transition cursor-pointer ${
-            menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-          }`}
-        >
-          Contact Me
-        </a>
-      </div>
-    );
-  };
+      <a
+        href="#contact"
+        onClick={handleContactClick}
+        className="mobile-menu-contact"
+      >
+        Contact Me
+      </a>
+    </div>
+  );
+};

@@ -1,127 +1,158 @@
-import { RevealOnScroll } from "../RevealOnScroll";
-import abstractImage from "../../assets/abstract.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+
+const codeLines = [
+  'app.MapPost("/payments", async (',
+  '    PaymentRequest request,',
+  '    IIdempotencyStore store,',
+  '    CancellationToken ct) => {',
+  '    var key = await store.AcquireAsync(request.Key, ct);',
+  '    if (key.HasResponse) return Results.Ok(key.Response);',
+  '    var result = await payments.CreateAsync(request, ct);',
+  '    await store.SaveAsync(key, result, ct);',
+  '    return Results.Ok(result);',
+  '});',
+];
 
 export const Home = () => {
-  const navigate = useNavigate();
+  const [codeVisible, setCodeVisible] = useState(false);
+  const [windowEntered, setWindowEntered] = useState(false);
+  const codeWindowRef = useRef(null);
 
-  const handleViewProjects = (e) => {
+  useEffect(() => {
+    const codeWindow = codeWindowRef.current;
+    if (!codeWindow) return undefined;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+        setCodeVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.3 });
+
+    observer.observe(codeWindow);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleSectionClick = (sectionId) => (e) => {
     e.preventDefault();
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const handleAboutMeClick = () => {
-    navigate('/aboutme');
-  };
-
   return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#F7F9FC]"
-    >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.12),_transparent_24%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.16),_transparent_20%)]" />
-      <div className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-white/90 to-transparent pointer-events-none" />
-
-      <RevealOnScroll>
-        <div className="relative max-w-7xl mx-auto px-4 py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <div>
-                <h1 className="text-5xl font-bold tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
-                  Hi! I'm <span className="block text-blue-700">Esdras Jimenez.</span>
-                </h1>
-                <p className="mt-3 text-slate-600 text-xl max-w-2xl leading-8">
-                  Systems Engineer | Master's in Project Management & Evaluation
-                </p>
-                <p className="mt-3 text-slate-600 text-sm max-w-2xl leading-7">
-                  I started as a Systems Engineer, fascinated by complex problems and how systems come together.
-                  I learned that great solutions isn't just about devoloping software, they’re about building the right things,
-                  with the right people, for a real purpose. Today, I combine engineering 
-                  and project thinking to turn ideas into practical results.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="#projects"
-                  onClick={handleViewProjects}
-                  className="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition hover:bg-slate-800 cursor-pointer"
-                >
-                  View Projects
-                </a>
-
-                <button
-                  onClick={handleAboutMeClick}
-                  className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 cursor-pointer"
-                >
-                  More about me →
-                </button>
-              </div>
-
-              <div className="mt-0.5">
-                <div className="h-px w-full bg-slate-200/80 mb-6" />
-                <div className="flex flex-row flex-wrap items-center gap-3 sm:gap-4">
-                  <a
-                    href="https://github.com/esdrasj71"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="GitHub"
-                    className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 transition hover:border-blue-300 hover:bg-blue-100 hover:text-blue-900"
-                  >
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M12 0.297C5.374 0.297 0 5.671 0 12.297c0 5.29 3.438 9.774 8.205 11.363.6.111.82-.26.82-.577 0-.285-.011-1.041-.017-2.043-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.494.997.108-.775.42-1.304.763-1.604-2.665-.303-5.467-1.332-5.467-5.93 0-1.309.468-2.381 1.235-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.3 1.23a11.52 11.52 0 0 1 3.003-.404c1.018.005 2.045.138 3.003.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.652.243 2.873.119 3.176.77.84 1.233 1.912 1.233 3.221 0 4.61-2.807 5.624-5.48 5.921.432.372.816 1.102.816 2.222 0 1.604-.015 2.896-.015 3.289 0 .319.219.694.825.576C20.565 22.068 24 17.584 24 12.297 24 5.671 18.627.297 12 .297z" />
-                    </svg>
-                    GitHub
-                  </a>
-
-                  <span className="h-6 border-l border-slate-300/60" />
-
-                  <a
-                    href="https://www.linkedin.com/in/esdjimenez"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="LinkedIn"
-                    className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 transition hover:border-blue-300 hover:bg-blue-100 hover:text-blue-900"
-                  >
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.024-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.35V9h3.414v1.561h.049c.476-.9 1.635-1.852 3.366-1.852 3.6 0 4.266 2.368 4.266 5.452v6.291zM5.337 7.433c-1.144 0-2.069-.928-2.069-2.07 0-1.144.925-2.07 2.069-2.07 1.144 0 2.069.926 2.069 2.07 0 1.142-.925 2.07-2.069 2.07zm1.777 13.019H3.56V9h3.554v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.225.792 24 1.771 24h20.451C23.205 24 24 23.225 24 22.271V1.729C24 .774 23.205 0 22.225 0z" />
-                    </svg>
-                    LinkedIn
-                  </a>
-                </div>
-              </div>
+    <section id="home" className="portfolio-hero section-ambient-section">
+      <div className="section-ambient" aria-hidden="true">
+        <div className="section-ambient-gradient section-ambient-gradient--hero">
+          <div className="section-ambient-orb section-ambient-orb--violet will-change-transform opacity-[0.65] motion-safe:animate-ambient-violet" />
+          <div className="section-ambient-orb section-ambient-orb--blue will-change-transform opacity-[0.65] motion-safe:animate-ambient-blue" />
+        </div>
+        <div className="section-ambient-noise bg-noise bg-repeat" />
+      </div>
+      <div className="hero-inner relative z-10 pt-4 md:pt-0">
+        <div className="hero-grid">
+          <div className="hero-copy">
+            <p className="hero-role">
+              <span className="hero-status-dot bg-[#7C5CFF] motion-safe:animate-status-pulse" aria-hidden="true" />
+              Software Engineer — Open to SWE I/II roles
+            </p>
+            <h1>Esdras Jimenez</h1>
+            <p className="hero-description">
+              I build backend and full-stack systems that hold up under real load, from idempotent transaction APIs to distributed services 
+              with caching, event-driven workflows, and live analytics dashboards.
+            </p>
+            <div className="hero-actions">
+              <a
+                href="#projects"
+                onClick={handleSectionClick("projects")}
+                className="hero-button hero-button-primary"
+              >
+                View Projects
+              </a>
+              <a
+                href="#contact"
+                onClick={handleSectionClick("contact")}
+                className="hero-button hero-button-secondary"
+              >
+                Get in touch
+              </a>
             </div>
+            <div className="mt-5 h-px w-10 bg-[rgba(255,255,255,0.08)]" aria-hidden="true" />
+            <div className="hero-socials mt-6 flex gap-4" aria-label="Social profiles">
+              <a
+                href="https://github.com/esdrasj71"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="h-12 w-12"
+              >
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0.9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.68-3.75-1.32-3.75-1.32-.5-1.29-1.24-1.63-1.24-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 .1.75 1.94 3.01 1.47.1-.72.39-1.21.7-1.49-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.21 1.15-2.99-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.11-1.44 3.05-1.14 3.05-1.14.61 1.54.23 2.68.11 2.96.72.78 1.15 1.77 1.15 2.99 0 4.29-2.62 5.23-5.11 5.51.4.35.75 1.02.75 2.06V22c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z" />
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/esdjimenez"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="h-12 w-12"
+              >
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.45 20.45h-3.55v-5.56c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.21 0 22.23 0Z" />
+                </svg>
+              </a>
+            </div>
+          </div>
 
-            <div className="lg:col-span-5 flex justify-center lg:justify-end self-center">
-              <div className="relative w-full max-w-[600px] rounded-[2rem] border border-slate-200/40 bg-white/75 p-6 shadow-[0_20px_40px_-30px_rgba(15,23,42,0.15)] ring-1 ring-slate-100">
-                <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-sky-200/40 via-transparent to-cyan-200/20 blur-3xl" />
-                <div className="relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-medium h-[200px] md:h-[330px]">
-                  <img
-                    src={abstractImage}
-                    alt="Abstract graphic"
-                    className="h-full w-full object-cover"
-                  />
+          <div
+            className="hero-visual-reveal"
+            onAnimationEnd={(event) => {
+              if (event.animationName === "hero-visual-enter") {
+                setWindowEntered(true);
+              }
+            }}
+          >
+            <div className="hero-visual motion-safe:animate-hero-float">
+              <div className="hero-ambient-glow motion-safe:animate-hero-glow-pulse" aria-hidden="true" />
+              <div className="hero-code-halo" aria-hidden="true" />
+              <div className="hero-visual-frame bg-[radial-gradient(circle_at_center,transparent_0%,rgba(11,11,15,0.6)_100%)]">
+                <div ref={codeWindowRef} className="hero-code-window" role="group" aria-label="C# idempotency handler code example">
+                  <div className="hero-code-header">
+                    <div className="hero-code-lights" aria-hidden="true">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                    <span className="hero-code-filename">IdempotencyHandler.cs</span>
+                  </div>
+                  <div className="hero-code-body">
+                    <pre><code>{codeLines.map((line, lineIndex) => {
+                      const revealLines = codeVisible && windowEntered;
+                      const lineClass = revealLines
+                        ? "opacity-0 translate-y-1 motion-safe:animate-hero-code-line"
+                        : "opacity-0 translate-y-1";
+
+                      return (
+                        <span
+                          key={lineIndex}
+                          className={`block motion-reduce:animate-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${lineClass}`}
+                          style={{ animationDelay: `${lineIndex * 90}ms` }}
+                        >
+                          {line}
+                          {lineIndex === codeLines.length - 1 && (
+                            <span className="motion-safe:animate-terminal-blink" aria-hidden="true"> ▎</span>
+                          )}
+                        </span>
+                      );
+                    })}</code></pre>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </RevealOnScroll>
+      </div>
     </section>
   );
 };

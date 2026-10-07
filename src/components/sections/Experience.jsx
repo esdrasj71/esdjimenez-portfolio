@@ -19,6 +19,21 @@ export const Experience = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  useEffect(() => {
+    const cards = document.querySelectorAll("#experience .experience-card");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, [tab]);
+
   const workEntries = [
     {
       id: 1,
@@ -70,21 +85,27 @@ export const Experience = () => {
   const entries = tab === "work" ? workEntries : educationEntries;
 
   return (
-    <section id="experience" className="py-12">
-      <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-slate-900 to-blue-600 bg-clip-text text-transparent text-center">
-            Experience
-          </h2>
+    <section id="experience" className="experience-section section-ambient-section">
+      <div className="section-ambient" aria-hidden="true">
+        <div className="section-ambient-gradient section-ambient-gradient--experience" />
+        <div className="section-ambient-noise bg-noise bg-repeat" />
+      </div>
+      <div className="experience-inner">
+        <header className="experience-header">
+          <p className="experience-eyebrow">02 — Experience</p>
+          <h2>Experience</h2>
+          <div className="experience-divider" aria-hidden="true" />
+        </header>
 
-        <div className="relative mb-8">
-          <div className="inline-flex bg-slate-100 rounded-full p-1 shadow-sm ring-1 ring-slate-200" role="tablist" aria-label="Experience tabs">
+        <div className="experience-toggle-wrap">
+          <div className="experience-toggle" role="tablist" aria-label="Experience tabs">
             <button
               onClick={() => setTab("work")}
               aria-pressed={tab === "work"}
-              className={`px-6 py-2 rounded-full transition-font font-medium ${
+              className={`experience-toggle-button ${
                 tab === "work"
-                  ? "bg-slate-900 text-white shadow-lg shadow-slate-200/30 ring-1 ring-blue-900"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "is-active"
+                  : ""
               }`}
             >
               Work
@@ -92,60 +113,54 @@ export const Experience = () => {
             <button
               onClick={() => setTab("education")}
               aria-pressed={tab === "education"}
-              className={`px-6 py-2 rounded-full transition-font font-medium ${
+              className={`experience-toggle-button ${
                 tab === "education"
-                  ? "bg-slate-900 text-white shadow-lg shadow-slate-200/30 ring-1 ring-blue-900"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "is-active"
+                  : ""
               }`}
             >
               Education
             </button>
           </div>
-
-          <div className="absolute left-0 right-0 top-full mt-2 h-0.5 overflow-hidden">
-            <div
-              className="h-0.5 bg-blue-900 rounded-full transition-all"
-              style={{ width: "50%", transform: `translateX(${tab === "work" ? "0%" : "100%"})` }}
-            />
-          </div>
         </div>
 
-        <div className="space-y-6">
-          {entries.map((item) => (
+        <div className={`experience-card-stack ${tab === "work" ? "is-work" : "is-education"}`}>
+          {entries.map((item, index) => (
             <div
               key={item.id}
-              className="flex items-start gap-4 bg-white p-4 rounded-lg border border-slate-200 hover:shadow-lg transition"
+              className="experience-card"
+              style={{ "--card-index": index }}
             >
-              <div className="flex-shrink-0">
-                <img src={item.logo} alt="logo" className="w-14 h-14 rounded-full object-cover border border-slate-200" />
+              {tab === "work" && (
+                <span className={`experience-timeline-dot ${index === 0 ? "is-current" : "is-older"}`} aria-hidden="true" />
+              )}
+              <div className="experience-card-logo">
+                <img src={item.logo} alt="logo" />
               </div>
 
-              <div className="flex-1">
-                <div className="flex items-start justify-between gap-4">
+              <div className="experience-card-content">
+                <div className="experience-card-heading">
                   <div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
-                      <p className="text-sm text-slate-600">{item.subtitle}</p>
-                    </div>
+                    <h3>{item.title}</h3>
+                    <p>{item.subtitle}</p>
                   </div>
-
-                  <div className="text-sm text-slate-500 ml-auto">{item.date}</div>
+                  <time className="experience-card-date">{item.date}</time>
                 </div>
 
                 {tab === "education" ? (
-                  <div className="mt-3 space-y-3 text-sm text-slate-600">
+                  <div className="experience-locations">
                     {item.bullets.map((b, i) => (
-                    <div key={i} className="flex items-start gap-3 relative">
-                        <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-100 text-red-600">
-                        <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
+                      <div key={i} className="experience-location">
+                        <span className="experience-location-pin">
+                          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
-                        </svg>
+                          </svg>
                         </span>
-                    
+
                         {item.id === 1 && b.includes("Guatemala") ? (
                           <div className="relative inline-block">
                             <span
-                              className="pt-0.5 cursor-pointer"
+                              className="experience-location-text"
                               tabIndex={0}
                               onMouseEnter={() => setHoveredId(item.id)}
                               onMouseLeave={() => setHoveredId(null)}
@@ -158,8 +173,8 @@ export const Experience = () => {
                             </span>
 
                             {(openMapId === item.id || hoveredId === item.id) && (
-                              <div className="absolute z-50 mt-2 left-0 w-72 sm:w-80 rounded-md shadow-lg bg-white border p-1">
-                                <div className="rounded-sm overflow-hidden">
+                              <div className="experience-map-popover">
+                                <div className="experience-map-frame">
                                   <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.075466579135!2d-90.4831323!3d14.594775499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8589a31955555537%3A0x9c472efd9face66a!2sRafael%20Landivar%20University!5e0!3m2!1sen!2sus!4v1786559624533!5m2!1sen!2sus"
                                     className="w-full h-44"
@@ -175,7 +190,7 @@ export const Experience = () => {
                         ) : item.id === 2 && b.includes("Quetzaltenango") ? (
                           <div className="relative inline-block">
                             <span
-                              className="pt-0.5 cursor-pointer"
+                              className="experience-location-text"
                               tabIndex={0}
                               onMouseEnter={() => setHoveredId(item.id)}
                               onMouseLeave={() => setHoveredId(null)}
@@ -188,8 +203,8 @@ export const Experience = () => {
                             </span>
 
                             {(openMapId === item.id || hoveredId === item.id) && (
-                              <div className="absolute z-50 mt-2 left-0 w-72 sm:w-80 rounded-md shadow-lg bg-white border p-1">
-                                <div className="rounded-sm overflow-hidden">
+                              <div className="experience-map-popover">
+                                <div className="experience-map-frame">
                                   <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.688419905885!2d-91.5181092!3d14.8427351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x858ea2ab00334b2f%3A0xb70aba74577dd282!2sUniversidad%20Mesoamericana%2C%20Quetzaltenango!5e0!3m2!1sen!2sus!4v1786560355842!5m2!1sen!2sus"
                                     className="w-full h-44"
@@ -203,13 +218,13 @@ export const Experience = () => {
                             )}
                           </div>
                         ) : (
-                          <span className="pt-0.5">{b}</span>
+                          <span className="experience-location-text">{b}</span>
                         )}
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <ul className="mt-3 max-w-[37rem]  list-disc list-inside space-y-1 text-sm text-slate-600">
+                  <ul className="experience-bullets">
                     {item.bullets.map((b, i) => (
                       <li key={i}>{b}</li>
                     ))}
@@ -219,7 +234,6 @@ export const Experience = () => {
             </div>
           ))}
         </div>
-        <p className="mt-6 text-xs text-slate-500">Tip: Use Left / Right arrows to switch tabs.</p>
       </div>
     </section>
   );

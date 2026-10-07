@@ -1,8 +1,23 @@
-import { RevealOnScroll } from "../RevealOnScroll";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Projects = () => {
     const navigate = useNavigate(); 
+
+    useEffect(() => {
+      const cards = document.querySelectorAll("#projects .project-card");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      cards.forEach((card) => observer.observe(card));
+      return () => observer.disconnect();
+    }, []);
 
     const handleProject1Click = (e) => {
         e.preventDefault(); 
@@ -22,117 +37,68 @@ export const Projects = () => {
   return (
     <section
       id="projects"
-      className="min-h-screen flex items-center justify-center py-20"
+      className="projects-section min-h-screen flex items-center justify-center section-ambient-section"
     >
-       <RevealOnScroll> 
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-slate-900 to-blue-600 bg-clip-text text-transparent text-center">
-            {" "}
-            Featured Projects
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-xl border border-slate-200 bg-white/90 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition">
-              <h3 className="text-xl font-bold mb-2"> Project Management Platform</h3>
-              <p className="text-slate-600 mb-4">
+      <div className="section-ambient" aria-hidden="true">
+        <div className="section-ambient-gradient section-ambient-gradient--projects will-change-transform motion-safe:animate-ambient-projects" />
+        <div className="section-ambient-noise bg-noise bg-repeat" />
+      </div>
+        <div className="projects-inner">
+          <header className="projects-header">
+            <p className="projects-eyebrow">03 — Projects</p>
+            <h2>Featured Projects</h2>
+            <div className="projects-divider" aria-hidden="true" />
+          </header>
+          <div className="projects-grid">
+            <article className="project-card" style={{ "--card-index": 0 }}>
+              <div className="project-card-content">
+                <p className="project-index">Project — 01</p>
+                <h3> FlowSpace</h3>
+                <p className="project-description">
                 A full-stack project management platform for managing organizations, projects, tasks, 
                 and teams with automated email notifications.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {["ReactJS", "Node.js", "PostgreSQL", "ExpressJS"].map((tech, key) => (
-                  <span
-                    key={key}
-                    className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 
-                                    hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all
-                    "
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex justify-between items-center">
-                <a
-                  onClick={handleProject1Click}
-                  className="text-blue-400 hover:text-blue-300 transition-colors my-4"
-                >
-                  View Project →
+                </p>
+                <p className="project-stack">{["ReactJS", "Node.js", "PostgreSQL", "ExpressJS"].join(" · ")}</p>
+                <div className="project-card-divider" aria-hidden="true" />
+                <a onClick={handleProject1Click} className="project-link">
+                  <span>View Project</span><span className="project-link-arrow" aria-hidden="true">→</span>
                 </a>
               </div>
-            </div>
+            </article>
 
-            <div className="p-6 rounded-xl border border-slate-200 bg-white/90 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition">
-              <h3 className="text-xl font-bold mb-2"> Transaction Gateway API</h3>
-              <p className="text-slate-600 mb-4">
+            <article className="project-card" style={{ "--card-index": 1 }}>
+              <div className="project-card-content">
+                <p className="project-index">Project — 02</p>
+                <h3> Transaction Gateway API</h3>
+                <p className="project-description">
                 A transaction API that prevents duplicate charges through idempotency, 
                 rate limiting, and exact response replay.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {["C#", ".NET", "PostgreSQL", "Redis", "Docker"].map((tech, key) => (
-                  <span
-                    key={key}
-                    className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 
-                                    hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all
-                    "
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex justify-between items-center">
-                <a
-                  onClick={handleProject2Click}
-                  className="text-blue-400 hover:text-blue-300 transition-colors my-4"
-                >
-                  View Project →
+                </p>
+                <p className="project-stack">{["C#", ".NET", "PostgreSQL", "Redis", "Docker"].join(" · ")}</p>
+                <div className="project-card-divider" aria-hidden="true" />
+                <a onClick={handleProject2Click} className="project-link">
+                  <span>View Project</span><span className="project-link-arrow" aria-hidden="true">→</span>
                 </a>
               </div>
-            </div>
+            </article>
 
-            <div
-              className="
-              glass p-6 rounded-xl border border-slate-200 bg-white/90
-              hover:-translate-y-1 hover:border-blue-500/30
-              hover:shadow-[0_4px_20px_rgba(59,130,246,0.1)]
-              transition-all
-            "
-            >
-              <h3 className="text-xl font-bold mb-2">LinkForge</h3>
-              <p className="text-slate-600 mb-4">
+            <article className="project-card" style={{ "--card-index": 2 }}>
+              <div className="project-card-content">
+                <p className="project-index">Project — 03</p>
+                <h3>LinkForge</h3>
+                <p className="project-description">
                 A distributed URL shortener with Redis caching, event-driven click tracking, and 
-                a live analytics dashboard showing real-time traffic insights. COMING SOON ...
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {["C#", ".NET", "PostgreSQL", "Redis", "Angular"].map(
-                  (tech) => (
-                    <span
-                      key={tech}
-                      className="
-                      bg-blue-500/10 text-blue-500 py-1 px-3 
-                      rounded-full text-sm
-                      transition
-                      hover:bg-blue-500/20 hover:-translate-y-0.5
-                      hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)]
-                    "
-                    >
-                      {tech}
-                    </span>
-                  )
-                )}
-              </div>
-              <div className="flex justify-between items-center">
-                <a
-                  onClick={handleProject3Click}
-                  className="text-blue-400 hover:text-blue-300 transition-colors my-4"
-                >
-                  View Project →
+                a live analytics dashboard showing real-time traffic insights. 
+                </p>
+                <p className="project-stack">{["C#", ".NET", "PostgreSQL", "Redis", "Angular"].join(" · ")}</p>
+                <div className="project-card-divider" aria-hidden="true" />
+                <a onClick={handleProject3Click} className="project-link">
+                  <span>View Project</span><span className="project-link-arrow" aria-hidden="true">→</span>
                 </a>
               </div>
-            </div>
-           
+            </article>
           </div>
         </div>
-      </RevealOnScroll> 
     </section>
   );
 };

@@ -49,7 +49,7 @@ function App() {
     <> 
       {!isLoaded && <LoadingScreen onComplete={() => setIsLoaded(true)} />}
       <Router>
-        <div className={`min-h-screen transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'} bg-[#EFF1F5] text-slate-900`}>
+        <div className={`min-h-screen transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'} bg-[var(--portfolio-bg)] text-[var(--portfolio-text)]`}>
           <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
           <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
                     

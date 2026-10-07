@@ -1,76 +1,96 @@
-import { RevealOnScroll } from "../RevealOnScroll";
+import { useEffect } from "react";
 
 export const About = () => {
+  useEffect(() => {
+    const cards = document.querySelectorAll("#about .development-card");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="about" className="min-h-screen flex items-center justify-center py-20 bg-[#F7F9FC]">
-      <RevealOnScroll>
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-2 text-center text-slate-900 bg-gradient-to-r from-slate-900 to-blue-700 bg-clip-text text-transparent">
+    <section id="about" className="development-section min-h-screen flex items-center justify-center section-ambient-section">
+      <div className="section-ambient" aria-hidden="true">
+        <div className="section-ambient-gradient section-ambient-gradient--about" />
+        <div className="section-ambient-noise bg-noise bg-repeat" />
+      </div>
+        <div className="development-inner">
+          <header className="development-header">
+            <p className="development-eyebrow">04 — Professional Development</p>
+            <h2>
             Professional Development          
-          </h2>
+            </h2>
+            <div className="development-divider" aria-hidden="true" />
+            <p className="development-subtitle">
+              A collection of certifications and credentials that reflect my commitment 
+              to continuous learning and growth in engineering and project management.
+            </p>
+          </header>
           
-          <p className="text-slate-600 mb-8 max-w-2xl mx-auto text-center">
-            A collection of certifications and credentials that reflect my commitment 
-            to continuous learning and growth in engineering and project management.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl border border-slate-200/40 p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <h3 className="text-xl font-semibold text-slate-800 mb-4 flex items-center gap-2">
-                <span className="text-blue-600">📜</span> Certifications
-              </h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3 group">
-                  <span className="text-blue-600 mt-1 group-hover:scale-110 transition-transform">✓</span>
-                  <div>
-                    <p className="font-medium text-slate-800 group-hover:text-blue-700 transition-colors duration-200">
+          <div className="development-grid">
+            <article className="development-card" style={{ "--card-index": 0 }}>
+              <div className="development-card-content">
+                <h3><span className="development-card-label">[ CERT ]</span> Certifications</h3>
+                <ul className="development-items">
+                  <li className="development-item">
+                    <span className="development-status-dot" aria-hidden="true" />
+                    <div>
+                      <p className="development-item-name">
                       AWS Certified Cloud Practitioner
-                    </p>
-                    <p className="text-sm text-slate-500">Amazon Web Services</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3 group">
-                  <span className="text-amber-500 mt-1 group-hover:scale-110 transition-transform">⟳</span>
-                  <div>
-                    <p className="font-medium text-slate-800 group-hover:text-blue-700 transition-colors duration-200 title-glow">
+                      </p>
+                      <p className="development-item-issuer">Amazon Web Services</p>
+                    </div>
+                  </li>
+                  <li className="development-item">
+                    <span className="development-status-dot is-in-progress" aria-hidden="true" />
+                    <div>
+                      <p className="development-item-name">
                       AWS Certified AI Practitioner
-                    </p>
-                    <p className="text-sm text-slate-500">
-                      Amazon Web Services <span className="text-amber-500 text-xs ml-1">(In Progress)</span>
-                    </p>
-                  </div>
-                </li>
-              </ul>
-            </div>
+                      </p>
+                      <p className="development-item-issuer">
+                        Amazon Web Services <span className="development-progress-label">(In Progress)</span>
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </article>
 
-            <div className="bg-white rounded-xl border border-slate-200/40 p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <h3 className="text-xl font-semibold text-slate-800 mb-4 flex items-center gap-2">
-                <span className="text-blue-600">🎓</span> Diplomas
-              </h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3 group">
-                  <span className="text-blue-600 mt-1 group-hover:scale-110 transition-transform">✓</span>
-                  <div>
-                    <p className="font-medium text-slate-800 group-hover:text-blue-700 transition-colors duration-200">
+            <article className="development-card" style={{ "--card-index": 1 }}>
+              <div className="development-card-content">
+                <h3><span className="development-card-label">[ DIPLOMA ]</span> Diplomas</h3>
+                <ul className="development-items">
+                  <li className="development-item">
+                    <span className="development-status-dot" aria-hidden="true" />
+                    <div>
+                      <p className="development-item-name">
                       Hybrid Network Security Diploma
-                    </p>
-                    <p className="text-sm text-slate-500">CITEIN</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3 group">
-                  <span className="text-blue-600 mt-1 group-hover:scale-110 transition-transform">✓</span>
-                  <div>
-                    <p className="font-medium text-slate-800 group-hover:text-blue-700 transition-colors duration-200">
+                      </p>
+                      <p className="development-item-issuer">CITEIN</p>
+                    </div>
+                  </li>
+                  <li className="development-item">
+                    <span className="development-status-dot" aria-hidden="true" />
+                    <div>
+                      <p className="development-item-name">
                       Software Quality Assurance (QA) Diploma
-                    </p>
-                    <p className="text-sm text-slate-500">CITEIN</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
+                      </p>
+                      <p className="development-item-issuer">CITEIN</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </article>
           </div>
         </div>
-      </RevealOnScroll>
     </section>
   );
 };
